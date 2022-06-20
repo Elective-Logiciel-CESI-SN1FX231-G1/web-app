@@ -4,6 +4,13 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+Vue.use(VueAxios, axios)
+// Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 new Vue({
