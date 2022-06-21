@@ -13,6 +13,7 @@
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
           transition="scale-transition"
           width="40"
+          @click="test"
         />
 
         <v-img
@@ -45,12 +46,32 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapActions, mapState } from 'vuex'
 
 export default Vue.extend({
   name: 'App',
 
   data: () => ({
     //
-  })
+  }),
+  computed:{
+    ...mapState('auth',['token']),
+  },
+  methods:{
+    ...mapActions('auth',['login']),
+    test(){
+      this.login({email:'client@test.com',password:'root'})
+    }
+  },
+  mounted() {
+    
+    // Add a request interceptor
+    this.axios.interceptors.request.use( (config) =>{
+      if (!this.token) return config
+      config.headers = config.headers || {}
+      config.headers.Authorization = `Bearer ${this.token}`
+      return config;
+    });
+  }
 })
 </script>
