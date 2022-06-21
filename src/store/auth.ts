@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { Module } from 'vuex'
 
-
 export type Role = 'client'| 'restaurateur'| 'deliverer'| 'developer'| 'commercial'| 'technician'| 'admin'
 
 export interface User {
@@ -18,36 +17,36 @@ interface AuthState {
   token?: string
 }
 
-const authModule : Module<AuthState,unknown> = {
+const authModule : Module<AuthState, unknown> = {
   namespaced: true,
-  state:() => ({
+  state: () => ({
     user: undefined,
     token: undefined
   }),
   getters: {
-    user:(state)=>()=>{
+    user: (state) => () => {
       return state.user
     },
-    token:(state)=>()=>{
+    token: (state) => () => {
       return state.token
     }
   },
   mutations: {
-    SET_TOKEN(state, token){
+    SET_TOKEN (state, token) {
       state.token = token
     },
-    SET_USER(state, user){
+    SET_USER (state, user) {
       state.user = user
     }
   },
   actions: {
-    async login(context,{ password, email }){
-      const {data} = (await axios.post('/auth/api/auth/login',{
+    async login (context, { password, email }) {
+      const { data } = (await axios.post('/auth/api/auth/login', {
         password,
         email
       }))
-      context.commit('SET_TOKEN',data.token)
-      context.commit('SET_USER',data.user)
+      context.commit('SET_TOKEN', data.token)
+      context.commit('SET_USER', data.user)
     }
   }
 }
