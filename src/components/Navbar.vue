@@ -51,94 +51,95 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  name: "NavBar",
-  data() {
-    return {};
+  name: 'NavBar',
+  data () {
+    return {}
   },
   computed: {
-    ...mapState("auth", ["user"]),
-    menuItems() {
+    ...mapState('auth', ['user']),
+    menuItems () {
       if (this.user) {
         switch (this.user.role) {
-          case "client":
-            return [
-              { title: "Panier",
-                path: "/cart", 
-                icon: "mdi-cart-outline" 
-              },
-            ];
-          case "restaurateur":
+          case 'client':
             return [
               {
-                title: "Dashboard",
-                path: "/dashboard",
-                icon: "mdi-monitor-dashboard",
-              },
-              {
-                title: "Gestion",
-                path: "/gestion",
-                icon: "mdi-cog-outline",
-              },
-              {
-                title: "Statistiques",
-                path: "/statistiques",
-                icon: "mdi-chart-line",
-              },
-            ];
-          case "deliverer":
+                title: 'Panier',
+                path: '/cart',
+                icon: 'mdi-cart-outline'
+              }
+            ]
+          case 'restaurateur':
             return [
               {
-                title: "Livraisons",
-                path: "/livraisons",
-                icon: "mdi-moped-outline",
+                title: 'Dashboard',
+                path: '/dashboard',
+                icon: 'mdi-monitor-dashboard'
               },
               {
-                title: "Historique",
-                path: "/historique",
-                icon: "mdi-history",
+                title: 'Gestion',
+                path: '/gestion',
+                icon: 'mdi-cog-outline'
               },
-            ];
+              {
+                title: 'Statistiques',
+                path: '/statistiques',
+                icon: 'mdi-chart-line'
+              }
+            ]
+          case 'deliverer':
+            return [
+              {
+                title: 'Livraisons',
+                path: '/livraisons',
+                icon: 'mdi-moped-outline'
+              },
+              {
+                title: 'Historique',
+                path: '/historique',
+                icon: 'mdi-history'
+              }
+            ]
         }
       }
       return [
-        { title: "Panier", path: "/cart", icon: "mdi-cart-outline" },
+        { title: 'Panier', path: '/cart', icon: 'mdi-cart-outline' },
         {
           title: "S'enregistrer",
-          path: "/signup",
-          icon: "mdi-account-plus-outline",
+          path: '/signup',
+          icon: 'mdi-account-plus-outline'
         },
         {
-          title: "Se connecter",
-          path: "/signin",
-          icon: "mdi-account-circle-outline",
-        },
-      ];
+          title: 'Se connecter',
+          path: '/signin',
+          icon: 'mdi-account-circle-outline'
+        }
+      ]
     },
-    profileItems() {
+    profileItems () {
       return [
         {
-          title: "Modifier mon profil",
-          path: "/profile",
-          icon: "mdi-account-cog-outline",
+          title: 'Modifier mon profil',
+          path: '/profile',
+          icon: 'mdi-account-cog-outline'
         },
         {
-          title: "Historique",
-          path: "/historique",
-          icon: "mdi-history",
-        },
-      ];
-    },
+          title: 'Historique',
+          path: '/historique',
+          icon: 'mdi-history'
+        }
+      ]
+    }
   },
   methods: {
-    ...mapActions("auth", ["login", "logout"]),
-    test() {
-      this.login({ email: "deliverer@test.com", password: "root" });
-    },
-  },
-};
+    ...mapActions('auth', ['login', 'logout']),
+    test () {
+      this.login({ email: 'deliverer@test.com', password: 'root' })
+    }
+  }
+}
 </script>
 <style scoped>
 .navigation-links {

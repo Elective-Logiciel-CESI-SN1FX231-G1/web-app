@@ -20,24 +20,23 @@ export default Vue.extend({
   data: () => ({
     //
   }),
-  computed:{
-    ...mapState('auth',['token']),
+  computed: {
+    ...mapState('auth', ['token'])
   },
-  methods:{
-    ...mapActions('auth',['login']),
-    test(){
-      this.login({email:'client@test.com',password:'root'})
+  methods: {
+    ...mapActions('auth', ['login']),
+    test () {
+      this.login({ email: 'client@test.com', password: 'root' })
     }
   },
-  mounted() {
-    
+  mounted () {
     // Add a request interceptor
-    this.axios.interceptors.request.use( (config) =>{
+    this.axios.interceptors.request.use((config) => {
       if (!this.token) return config
       config.headers = config.headers || {}
       config.headers.Authorization = `Bearer ${this.token}`
-      return config;
-    });
+      return config
+    })
   }
 })
 </script>
