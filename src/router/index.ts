@@ -18,12 +18,12 @@ const routes: Array<RouteConfig> = [
     component: HomeView
   },
   {
-    path: "/cart",
+    path: '/cart',
     name: 'cart',
     component: CartView
   },
   {
-    path: "/historique",
+    path: '/historique',
     name: 'historique',
     component: HistoriqueView
   },
@@ -51,7 +51,7 @@ const routes: Array<RouteConfig> = [
     path: '/livraison',
     name: 'Livraison',
     component: LivraisonView
-  },
+  }
 ]
 
 const router = new VueRouter({
