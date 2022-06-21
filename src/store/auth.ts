@@ -49,7 +49,7 @@ const authModule : Module<AuthState, unknown> = {
       context.commit('SET_USER', data.user)
     },
 
-    async logour (context) {
+    async logout (context) {
       context.commit('SET_TOKEN', undefined)
       context.commit('SET_USER', undefined)
     }
