@@ -2,7 +2,6 @@
   <div>
     <v-data-iterator
       :items="restaurants"
-
     >
       <template v-slot:header>
         <v-row>
@@ -40,7 +39,7 @@
             v-for="restaurant in props.items"
             :key="restaurant._id"
           >
-            <restaurant :value="restaurant"/>
+            <restaurant :value="restaurant" :to="{name:'restaurant',param:{id:restaurant._id}}" />
           </v-col>
         </v-row>
       </template>
@@ -51,13 +50,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import Restaurant from './Restaurant.vue'
+import types from '@/assets/types'
 export default Vue.extend({
   components: {
     Restaurant
   },
   data: () => ({
     restaurants: [] as unknown[],
-    types: ['Fast Food', 'Japonais', 'Chinois', 'Italien'],
+    types,
     selectedTypes: [] as string[],
     search: ''
   }),

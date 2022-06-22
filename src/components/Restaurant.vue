@@ -1,12 +1,15 @@
 <template>
-  <v-card :to="{name:'restaurant',param:{id:value._id}}" class="ma-1" outlined>
+  <v-card class="ma-1" outlined>
     <v-row class="ma-0">
       <v-col style="min-width:240px" class="col-2">
-        <v-img :src="value.img" aspect-ratio="1"></v-img>
+        <v-img :src="value.image" aspect-ratio="1"></v-img>
       </v-col>
       <v-col>
-        <v-card-title v-text="value.name"/>
-        <v-card-text v-text="truncatedDescription"/>
+        <v-card-text>
+          <h4 class="text-h4 text--primary" v-text="value.name"/>
+          <p v-text="value.address"></p>
+          <p v-text="truncatedDescription"></p>
+        </v-card-text>
       </v-col>
     </v-row>
   </v-card>
