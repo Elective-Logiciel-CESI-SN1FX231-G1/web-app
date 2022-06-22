@@ -4,6 +4,7 @@
     <v-main>
       <router-view/>
     </v-main>
+    <FooterComponent />
   </v-app>
 </template>
 
@@ -11,11 +12,13 @@
 import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import NavBar from '@/components/Navbar.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
 
 export default Vue.extend({
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    FooterComponent
   },
   data: () => ({
     //
