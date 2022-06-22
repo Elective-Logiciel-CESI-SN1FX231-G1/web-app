@@ -1,5 +1,8 @@
 <template>
   <v-card :loading="loading">
+    <v-card-title primary-title>
+      Se connecter
+    </v-card-title>
     <v-card-text>
       <v-form v-model="valid">
         <v-alert

@@ -37,7 +37,7 @@
                   <span>{{ item.title }}</span>
               </v-list-item-title>
             </v-list-item>
-            <v-list-item @click="logout">
+            <v-list-item @click="loginDialog=false;logout()">
               <v-list-item-title>
                   <v-icon class="mr-2 red--text">mdi-logout</v-icon>
                   <span class="red--text">Se déconnecter</span>
@@ -46,17 +46,44 @@
           </v-list>
         </v-menu>
       </li>
+      <template v-else>
+        <li>
+          <v-btn text>
+            <span class="mr-2"> S'enregistrer</span>
+            <v-icon>mdi-account-plus-outline</v-icon>
+          </v-btn>
+        </li>
+        <li>
+          <v-dialog
+            v-model="loginDialog"
+            width="500"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn text v-bind="attrs" v-on="on">
+                <span class="mr-2">Se connecter</span>
+                <v-icon>mdi-account-circle-outline</v-icon>
+              </v-btn>
+            </template>
+            <login-form />
+          </v-dialog>
+        </li>
+      </template>
     </ul>
   </v-app-bar>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
-
+import LoginForm from '@/components/auth/LoginForm.vue'
 export default {
   name: 'NavBar',
+  components: {
+    LoginForm
+  },
   data () {
-    return {}
+    return {
+      loginDialog: false
+    }
   },
   computed: {
     ...mapState('auth', ['user']),
@@ -105,17 +132,7 @@ export default {
         }
       }
       return [
-        { title: 'Panier', path: '/cart', icon: 'mdi-cart-outline' },
-        {
-          title: "S'enregistrer",
-          path: '/signup',
-          icon: 'mdi-account-plus-outline'
-        },
-        {
-          title: 'Se connecter',
-          path: '/signin',
-          icon: 'mdi-account-circle-outline'
-        }
+        { title: 'Panier', path: '/cart', icon: 'mdi-cart-outline' }
       ]
     },
     profileItems () {
