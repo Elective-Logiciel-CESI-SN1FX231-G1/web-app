@@ -4,6 +4,7 @@
     <v-main>
       <router-view/>
     </v-main>
+    <FooterComponent />
   </v-app>
 </template>
 
@@ -11,26 +12,32 @@
 import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import NavBar from '@/components/Navbar.vue'
+import FooterComponent from '@/components/FooterComponent.vue'
+import setTheme from '@/assets/setTheme'
 
 export default Vue.extend({
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    FooterComponent
   },
   data: () => ({
     //
   }),
   computed: {
-    ...mapState('auth', ['token'])
+    ...mapState('auth', ['token', 'user'])
+  },
+  watch: {
+    user () {
+      setTheme(this.user?.role, this.$vuetify.theme.themes)
+    }
   },
   methods: {
-    ...mapActions('auth', ['login']),
-    test () {
-      this.login({ email: 'client@test.com', password: 'root' })
-    }
+    ...mapActions('auth', ['login'])
   },
   mounted () {
     // Add a request interceptor
+    setTheme(this.user?.role, this.$vuetify.theme.themes)
     this.axios.interceptors.request.use((config) => {
       if (!this.token) return config
       config.headers = config.headers || {}
