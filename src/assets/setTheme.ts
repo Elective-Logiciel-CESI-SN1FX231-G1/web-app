@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function (role: string, theme: any) {
   theme.name = themes[role || 'client'].name
   Object.assign(theme.light, themes[role || 'client'].light)
@@ -9,7 +10,7 @@ const themes = {
   client: {
     name: 'Client',
     light: {
-      primary: '#3ab2c2'
+      primary: '#fff'
     },
     dark: {
 

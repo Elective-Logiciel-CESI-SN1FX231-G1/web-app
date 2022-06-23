@@ -3,12 +3,11 @@
     <div class="d-flex align-center">
       <router-link to="/">
         <v-img
-          alt="Vuetify Logo"
+          alt="V'EAT Logo"
           class="shrink mr-2"
           contain
           src="../assets/v-eat-light.png"
           width="100"
-          v-on:click="test"
         />
       </router-link>
     </div>
@@ -19,7 +18,7 @@
       <li v-for="item in menuItems" :key="item.title" :to="item.path">
         <v-btn text :key="item.title" :to="item.path">
           <div class="d-flex flex-column-reverse d-lg-block">
-            <span class="mr-sm-0 mr-lg-2 top-2">{{ item.title }}</span>
+            <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">{{ item.title }}</span>
             <v-icon>{{ item.icon }}</v-icon>
           </div>
         </v-btn>
@@ -29,20 +28,20 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn text v-bind="attrs" v-on="on">
               <div class="d-flex flex-column-reverse d-lg-block">
-                <span class="mr-sm-0 mr-lg-2 top-2">Profil</span>
+                <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Profil</span>
                 <v-icon>mdi-account-circle-outline</v-icon>
               </div>
             </v-btn>
           </template>
           <v-list>
             <v-list-item v-for="(item, index) in profileItems" :key="index" :to="item.path">
-              <v-list-item-title>
+              <v-list-item-title class="font-weight-bold">
                   <v-icon class="mr-2">{{ item.icon }}</v-icon>
                   <span>{{ item.title }}</span>
               </v-list-item-title>
             </v-list-item>
             <v-list-item @click="loginDialog=false;logout()">
-              <v-list-item-title>
+              <v-list-item-title class="font-weight-bold">
                   <v-icon class="mr-2 red--text">mdi-logout</v-icon>
                   <span class="red--text">Se déconnecter</span>
               </v-list-item-title>
@@ -52,7 +51,7 @@
       </li>
       <template v-else>
         <li>
-          <v-btn text>
+          <v-btn text class="font-weight-bold">
             <span class="mr-2"> S'enregistrer</span>
             <v-icon>mdi-account-plus-outline</v-icon>
           </v-btn>
@@ -63,7 +62,7 @@
             width="500"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn text v-bind="attrs" v-on="on">
+              <v-btn text v-bind="attrs" v-on="on" class="font-weight-bold">
                 <span class="mr-2">Se connecter</span>
                 <v-icon>mdi-account-circle-outline</v-icon>
               </v-btn>
@@ -155,10 +154,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['login', 'logout']),
-    test () {
-      this.login({ email: 'restaurateur@test.com', password: 'root' })
-    }
+    ...mapActions('auth', ['login', 'logout'])
   }
 }
 </script>
