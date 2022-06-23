@@ -18,16 +18,20 @@
     <ul class="navigation-links">
       <li v-for="item in menuItems" :key="item.title" :to="item.path">
         <v-btn text :key="item.title" :to="item.path">
-          <span class="mr-2">{{ item.title }}</span>
-          <v-icon>{{ item.icon }}</v-icon>
+          <div class="d-flex flex-column-reverse d-lg-block">
+            <span class="mr-sm-0 mr-lg-2 top-2">{{ item.title }}</span>
+            <v-icon>{{ item.icon }}</v-icon>
+          </div>
         </v-btn>
       </li>
       <li v-if="user">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn text v-bind="attrs" v-on="on">
-              <span class="mr-2">Profil</span>
-              <v-icon>mdi-account-circle-outline</v-icon>
+              <div class="d-flex flex-column-reverse d-lg-block">
+                <span class="mr-sm-0 mr-lg-2 top-2">Profil</span>
+                <v-icon>mdi-account-circle-outline</v-icon>
+              </div>
             </v-btn>
           </template>
           <v-list>
@@ -136,7 +140,7 @@ export default {
   methods: {
     ...mapActions('auth', ['login', 'logout']),
     test () {
-      this.login({ email: 'deliverer@test.com', password: 'root' })
+      this.login({ email: 'restaurateur@test.com', password: 'root' })
     }
   }
 }
@@ -147,5 +151,9 @@ export default {
 }
 .navigation-links li {
   list-style: none;
+}
+.top-2 {
+  position: relative;
+  top: 1.6px;
 }
 </style>
