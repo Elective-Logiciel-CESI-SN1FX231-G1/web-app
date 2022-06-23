@@ -24,6 +24,26 @@
           </div>
         </v-btn>
       </li>
+      <template v-if="user && user.role === 'client'">
+        <li>
+          <v-btn text :to="{ name: 'cart' }">
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-2">Panier</span>
+              <v-icon>mdi-cart-outline</v-icon>
+            </div>
+          </v-btn>
+        </li>
+      </template>
+      <template v-if="user && user.role === 'technician'">
+        <li>
+          <v-btn text :to="{ name: 'logs' }">
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-2">Logs</span>
+              <v-icon>mdi-clipboard-text-multiple-outline</v-icon>
+            </div>
+          </v-btn>
+        </li>
+      </template>
       <li v-if="user">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -94,14 +114,6 @@ export default {
     menuItems () {
       if (this.user) {
         switch (this.user.role) {
-          case 'client':
-            return [
-              {
-                title: 'Panier',
-                path: '/cart',
-                icon: 'mdi-cart-outline'
-              }
-            ]
           case 'restaurateur':
             return [
               {
@@ -136,7 +148,6 @@ export default {
         }
       }
       return [
-        { title: 'Panier', path: '/cart', icon: 'mdi-cart-outline' }
       ]
     },
     profileItems () {
@@ -155,10 +166,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['login', 'logout']),
-    test () {
-      this.login({ email: 'restaurateur@test.com', password: 'root' })
-    }
+    ...mapActions('auth', ['login', 'logout'])
   }
 }
 </script>

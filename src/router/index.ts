@@ -8,6 +8,7 @@ import StatistiquesView from '../views/StatistiquesView.vue'
 import GestionView from '../views/GestionView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import LivraisonView from '../views/LivraisonView.vue'
+import LogsView from '../views/LogsView.vue'
 
 Vue.use(VueRouter)
 
@@ -29,28 +30,33 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/profile',
-    name: 'Profile',
+    name: 'profile',
     component: ProfileView
   },
   {
     path: '/statistiques',
-    name: 'Statistiques',
+    name: 'statistiques',
     component: StatistiquesView
   },
   {
     path: '/gestion',
-    name: 'Gestion',
+    name: 'gestion',
     component: GestionView
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
+    name: 'dashboard',
     component: DashboardView
   },
   {
     path: '/livraison',
-    name: 'Livraison',
+    name: 'livraison',
     component: LivraisonView
+  },
+  {
+    path: '/logs',
+    name: 'logs',
+    component: LogsView
   }
 ]
 
