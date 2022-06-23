@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    color="primary lighten-1"
+    color="primary"
     padless
   >
     <v-row
@@ -18,7 +18,7 @@
         {{ link }}
       </v-btn>
       <v-col
-        class="primary lighten-2 py-4 text-center white--text"
+        class="primary lighten-1 py-4 text-center white--text"
         cols="12"
       >
         {{ new Date().getFullYear() }} — <strong>V'Eat</strong>
