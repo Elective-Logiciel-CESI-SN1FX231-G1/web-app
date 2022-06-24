@@ -15,8 +15,8 @@
                 filter
                 outlined
                 v-for="t in types"
-                :key="t"
-                v-text="t"
+                :key="t.name"
+                v-text="t.name"
               />
             </v-chip-group>
           </v-col>
@@ -39,7 +39,9 @@
             v-for="restaurant in props.items"
             :key="restaurant._id"
           >
-            <restaurant :value="restaurant" :to="{name:'restaurant',param:{id:restaurant._id}}" />
+          <router-link :to="{name:'shop-restaurant',params:{id:restaurant._id}}">
+            <restaurant :value="restaurant"/>
+          </router-link>
           </v-col>
         </v-row>
       </template>
@@ -62,23 +64,7 @@ export default Vue.extend({
     search: ''
   }),
   async mounted () {
-    this.restaurants = [
-      {
-        img: 'https://cdn.sortiraparis.com/images/80/95878/693086-photos-mohamed-cheikh-top-chef-2021-a-la-pagode-de-cos-de-la-reserve.jpg',
-        name: 'Grand man eat où?',
-        description: 'Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?'
-      },
-      {
-        img: 'https://cdn.sortiraparis.com/images/80/95878/693086-photos-mohamed-cheikh-top-chef-2021-a-la-pagode-de-cos-de-la-reserve.jpg',
-        name: 'Grand man eat où?2',
-        description: 'Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?'
-      },
-      {
-        img: 'https://cdn.sortiraparis.com/images/80/95878/693086-photos-mohamed-cheikh-top-chef-2021-a-la-pagode-de-cos-de-la-reserve.jpg',
-        name: 'Grand man eat où?3',
-        description: 'Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?Grand man eat où?'
-      }
-    ]
+    this.restaurants = (await this.axios.get('/shop/api/restaurants')).data.results
   }
 })
 </script>

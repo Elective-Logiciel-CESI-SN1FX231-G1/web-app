@@ -11,6 +11,7 @@ import LivraisonView from '../views/LivraisonView.vue'
 import LogsView from '../views/LogsView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ShopView from '../views/ShopView.vue'
+import ShopRestaurantView from '../views/ShopRestaurantView.vue'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes: Array<RouteConfig> = [
     path: '/shop',
     name: 'shop',
     component: ShopView
+  },
+  {
+    path: '/shop/:id',
+    name: 'shop-restaurant',
+    component: ShopRestaurantView
   }
 ]
 
