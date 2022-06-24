@@ -32,7 +32,7 @@
                 <span class="blue--text font-weight-bold text-xl-h6 text-decoration-underline">Connectez-vous</span>
               </v-btn>
             </template>
-            <login-form />
+            <login-form @login="loginDialog=false" />
           </v-dialog>
           pour voir vos adresses récentes
           </p>

@@ -60,7 +60,7 @@
                   <span>{{ item.title }}</span>
               </v-list-item-title>
             </v-list-item>
-            <v-list-item @click="loginDialog=false;logout()">
+            <v-list-item @click="logout">
               <v-list-item-title class="font-weight-bold">
                   <v-icon class="mr-2 red--text">mdi-logout</v-icon>
                   <span class="red--text">Se déconnecter</span>
@@ -87,7 +87,7 @@
                 <v-icon>mdi-account-circle-outline</v-icon>
               </v-btn>
             </template>
-            <login-form />
+            <login-form @login="loginDialog=false" />
           </v-dialog>
         </li>
       </template>

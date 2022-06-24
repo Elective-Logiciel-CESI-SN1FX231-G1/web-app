@@ -75,6 +75,7 @@ export default Vue.extend({
           email: this.email,
           password: this.password
         })
+        this.$emit('login')
       } catch (error) {
         this.error = true
       } finally {
