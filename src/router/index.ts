@@ -10,6 +10,7 @@ import DashboardView from '../views/DashboardView.vue'
 import LivraisonView from '../views/LivraisonView.vue'
 import LogsView from '../views/LogsView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import ShopView from '../views/ShopView.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ const routes: Array<RouteConfig> = [
     path: '/register',
     name: 'register',
     component: RegisterView
+  },
+  {
+    path: '/shop',
+    name: 'shop',
+    component: ShopView
   }
 ]
 

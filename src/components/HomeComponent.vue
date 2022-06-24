@@ -41,10 +41,25 @@
     </div>
     <div class="separator"></div>
     <div class="d-flex justify-space-around align-center flex-column flex-md-row">
-      <div class="join-us">
+      <div class="col-md-4 col-12 card">
+        <v-img src="../assets/client.jpg" width="100%" aspect-ratio="1.5">
+          <div class="d-flex flex-column justify-end h-100 pa-5 inset">
+            <h3 class="text-xl-h3 font-weight-bold white--text">Passer commande</h3>
+            <p class="text-xl-p white--text">Recevez votre repas rapidement</p>
+            <v-btn :to="{name: 'register', query: {role: 'client'}}"
+              elevation="24"
+              outlined
+              rounded
+              text
+              class="red w-20"
+            >Démarrer</v-btn>
+          </div>
+        </v-img>
+      </div>
+      <div class="col-md-4 col-12 card">
         <v-img src="../assets/livreur.jpg" width="100%" aspect-ratio="1.5">
           <div class="d-flex flex-column justify-end h-100 pa-5 inset">
-            <h3 class="text-xl-h3 font-weight-bold white--text">Roulez pour nous</h3>
+            <h3 class="text-xl-h3 font-weight-bold white--text">Rouler pour nous</h3>
             <p class="text-xl-p white--text">Livrer selon votre emploi du temps et bénéficier d'avantages exclusifs</p>
             <v-btn :to="{name: 'register', query: {role: 'deliverer'}}"
             elevation="24"
@@ -56,10 +71,10 @@
           </div>
         </v-img>
       </div>
-      <div class="join-us">
+      <div class="col-md-4 col-12 card">
         <v-img src="../assets/restaurateur.jpg">
           <div class="d-flex flex-column justify-end h-100 pa-5 inset">
-            <h3 class="text-xl-h3 font-weight-bold white--text">Rejoignez nous</h3>
+            <h3 class="text-xl-h3 font-weight-bold white--text">Cuisiner pour nous</h3>
             <p class="text-xl-p white--text">Joignez vous à V'EAT en tant que restaurateur</p>
             <v-btn :to="{name: 'register', query: {role: 'restaurateur'}}"
               elevation="24"
@@ -113,13 +128,8 @@ export default {
 .w-20 {
   width: 35%;
 }
-.join-us {
-  width: 50%;
-}
-@media (max-width: 960px) {
-  .join-us {
-  width: 100%;
-  }
+.card {
+  padding: 0;
 }
 .h-100 {
   height: 100%;
