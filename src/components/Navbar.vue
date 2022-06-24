@@ -71,7 +71,7 @@
       </li>
       <template v-else>
         <li>
-          <v-btn text class="font-weight-bold">
+          <v-btn text class="font-weight-bold" :to="{ name: 'register' }">
             <span class="mr-2"> S'enregistrer</span>
             <v-icon>mdi-account-plus-outline</v-icon>
           </v-btn>
