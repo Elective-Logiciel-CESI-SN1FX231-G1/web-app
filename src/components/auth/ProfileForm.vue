@@ -8,6 +8,7 @@
         <v-text-field
           v-if="!user._id"
           v-model="user.email"
+          name="email"
           label="Email"
           :rules="[
               v => !!v || 'L\'adresse email est requise',
@@ -16,6 +17,7 @@
         />
         <v-text-field
           v-model="user.firstname"
+          name="firstname"
           label="Prénom"
           :rules="[
               v => !!v || 'Le prénom est requis'
@@ -23,6 +25,7 @@
         />
         <v-text-field
           v-model="user.lastname"
+          name="lastname"
           label="Nom"
           :rules="[
               v => !!v || 'Le nom est requis'
@@ -31,6 +34,7 @@
         <v-text-field
           v-model="user.phone"
           label="Numéro de téléphone"
+          name="phone"
           :rules="[
               v => !!v || 'Le numéro de téléphone est requis'
             ]"
@@ -78,6 +82,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapActions } from 'vuex'
 
 export default Vue.extend({
   components: {
@@ -90,10 +95,10 @@ export default Vue.extend({
   data () {
     return {
       roles: [
-        { text: 'Client', key: 'client' },
-        { text: 'Livreur', key: 'deliverer' },
-        { text: 'Restaurateur', key: 'restaurateur' },
-        { text: 'Développeur', key: 'developer' }
+        { text: 'Client', value: 'client' },
+        { text: 'Livreur', value: 'deliverer' },
+        { text: 'Restaurateur', value: 'restaurateur' },
+        { text: 'Développeur', value: 'developer' }
       ],
       user: JSON.parse(JSON.stringify(this.value)),
       valid: false,
@@ -105,24 +110,20 @@ export default Vue.extend({
     // ...mapState('auth', ['user'])
   },
   methods: {
+    ...mapActions('auth', ['login']),
     async submit () {
+      if (this.role) this.user.role = this.role
       if (this.user._id) await this.axios.patch(`/auth/api/users/${this.user._id}`, this.user)
       else await this.axios.post('/auth/api/users', this.user)
-    },
-    async tryLogin () {
-      try {
-        this.loading = true
-        this.error = false
+
+      if (!this.user._id) {
         await this.login({
-          email: this.email,
-          password: this.password
+          email: this.user.email,
+          password: this.user.password
         })
-        this.$emit('login')
-      } catch (error) {
-        this.error = true
-      } finally {
-        this.loading = false
       }
+      this.$emit('save')
+      this.$router.push({ name: 'home' })
     }
   }
 })

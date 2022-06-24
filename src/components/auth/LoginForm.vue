@@ -15,6 +15,7 @@
         <v-text-field
           v-model="email"
           label="Email"
+          name="email"
           :rules="[
               v => !!v || 'L\'adresse email est requise',
               v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'L\'adresse email doit etre valide'
@@ -22,6 +23,7 @@
         />
         <v-text-field
           v-model="password"
+          name="password"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           label="Mot de passe"
@@ -76,6 +78,7 @@ export default Vue.extend({
           password: this.password
         })
         this.$emit('login')
+        this.$router.push({ name: 'home' })
       } catch (error) {
         this.error = true
       } finally {
