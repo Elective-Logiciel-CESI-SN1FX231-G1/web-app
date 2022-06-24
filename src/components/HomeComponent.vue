@@ -4,13 +4,13 @@
       <v-card
         class="d-flex flex-column align-center justify-space-around background"
       >
-        <h2 class="mt-10 white--text text-lg-h2 font-weight-medium">
+        <h2 class="white--text text-lg-h2 font-weight-medium">
           Faites vous livrer plus <span class="blue--text font-weight-black">V'EAT</span> que
           l'éclair
         </h2>
         <div>
           <v-form>
-            <v-card class="pa-6 mt-10 transparent">
+            <v-card class="pa-6 transparent">
               <v-text-field
                 label="Votre adresse"
                 placeholder="Saisissez votre adresse"
@@ -22,7 +22,7 @@
               ></v-text-field>
             </v-card>
           </v-form>
-          <p class="text-xl-h5 mt-8 white--text">
+          <p class="text-xl-h5 white--text">
             <v-dialog
             v-model="loginDialog"
             width="500"
@@ -39,8 +39,37 @@
         </div>
     </v-card>
     </div>
-    <div class="d-flex justify-space-around">
-      <h2>img</h2>
+    <div class="d-flex justify-space-around align-center flex-column flex-md-row">
+      <div class="join-us">
+        <v-img src="../assets/restaurateur.jpg">
+          <div class="d-flex flex-column justify-end h-100 pa-5 inset">
+            <h3 class="text-xl-h3 font-weight-bold white--text">Rejoignez nous</h3>
+            <p class="text-xl-p white--text">Joignez vous à V'EAT en tant que restaurateur</p>
+            <v-btn :to="{name: 'register', query: {role: 'restaurateur'}}"
+              elevation="24"
+              outlined
+              rounded
+              text
+              class="red w-20"
+            >Démarrer</v-btn>
+          </div>
+        </v-img>
+      </div>
+      <div class="join-us">
+        <v-img src="../assets/livreur.jpg" width="100%" aspect-ratio="1.5">
+          <div class="d-flex flex-column justify-end h-100 pa-5 inset-2">
+            <h3 class="text-xl-h3 font-weight-bold white--text">Roulez pour nous</h3>
+            <p class="text-xl-p white--text">Livrer selon votre emploi du temps et bénéficier d'avantages exclusifs</p>
+            <v-btn :to="{name: 'register', query: {role: 'deliverer'}}"
+            elevation="24"
+            outlined
+            rounded
+            text
+            class="red w-20"
+            >Démarrer</v-btn>
+          </div>
+        </v-img>
+      </div>
     </div>
   </div>
 </template>
@@ -71,7 +100,7 @@ export default {
   align-items: center;
 }
 .background {
-  height: 55vh;
+  height: 35vh;
   width: 60%;
   margin-left: 20%;
   background: #00000069;
@@ -79,5 +108,25 @@ export default {
 .transparent {
   background: none !important;
   box-shadow: none !important;
+}
+.w-20 {
+  width: 35%;
+}
+.join-us {
+  width: 50%;
+}
+@media (max-width: 960px) {
+  .join-us {
+  width: 100%;
+  }
+}
+.h-100 {
+  height: 100%;
+}
+.inset {
+  box-shadow: inset 0em -10em #0000008f;
+}
+.inset-2 {
+  box-shadow: inset 0em -10em #000000d2;
 }
 </style>
