@@ -21,13 +21,21 @@
                 <v-card-title>
                   Mes produits
                   <v-spacer></v-spacer>
+                  <delayed-search-bar @input="productQuery=$event;fetchProducts()"></delayed-search-bar>
                   <product-form-dialog @update="fetchProducts"></product-form-dialog>
                 </v-card-title>
                 <v-card-text>
-                  <v-alert type="warning" text v-if="!products || !products.length">
-                    Aucun produit a été enregisté
+                  <v-alert type="warning" text v-if="(!products || !products.length) && !productQuery">
+                    Aucun produit n'a été enregisté
                   </v-alert>
-                  <v-data-iterator :items="products" v-else>
+                  <v-data-iterator
+                    v-else
+                    :items="products"
+                    @pagination="fetchProducts"
+                    :page.sync="productPage"
+                    :items-per-page.sync="productItemPerPage"
+                    :server-items-length="productCount"
+                  >
                     <template v-slot:default="props">
                       <v-list>
                         <template v-for="product in props.items">
@@ -39,7 +47,7 @@
                               <v-list-item-title>
                                 <v-row>
                                   <v-col>
-                                    {{product.name}}
+                                    {{ product.name }}
                                   </v-col>
                                   <v-spacer></v-spacer>
                                   <v-col style="flex-grow: 0;">
@@ -81,6 +89,7 @@ import { mapState } from 'vuex'
 import RestaurantFormDialog from '@/components/RestaurantFormDialog.vue'
 import ProductFormDialog from '@/components/ProductFormDialog.vue'
 import Restaurant from '@/components/Restaurant.vue'
+import DelayedSearchBar from '@/components/DelayedSearchBar.vue'
 
 export default Vue.extend({
   name: 'Gestion',
@@ -88,13 +97,18 @@ export default Vue.extend({
   components: {
     ProductFormDialog,
     RestaurantFormDialog,
-    Restaurant
+    Restaurant,
+    DelayedSearchBar
   },
   data: () => ({
+    productQuery: '',
     restaurant: undefined,
     products: undefined,
     menus: undefined,
-    loading: true
+    loading: true,
+    productPage: 1,
+    productItemPerPage: 10,
+    productCount: 0
   }),
   computed: {
     ...mapState('auth', ['user'])
@@ -105,8 +119,9 @@ export default Vue.extend({
       this.restaurant = restaurants.results[0]
     },
     async fetchProducts () {
-      const products = (await this.axios.get(`/shop/api/products?owner=${this.user._id}`)).data
+      const products = (await this.axios.get(`/shop/api/products?owner=${this.user._id}&q=${this.productQuery}&page=${this.productPage}&size=${this.productItemPerPage === -1 ? 0 : this.productItemPerPage}`)).data
       this.products = products.results
+      this.productCount = products.count
     },
     async fetchMenus () {
       const menus = (await this.axios.get(`/shop/api/menus?owner=${this.user._id}`)).data
