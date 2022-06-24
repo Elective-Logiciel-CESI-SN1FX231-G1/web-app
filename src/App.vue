@@ -36,7 +36,7 @@ export default Vue.extend({
     ...mapActions('auth', ['login'])
   },
   mounted () {
-    // Add a request interceptor
+    this.$vuetify.lang.current = 'fr'
     setTheme(this.user?.role, this.$vuetify.theme.themes)
     this.axios.interceptors.request.use((config) => {
       if (!this.token) return config
