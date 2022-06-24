@@ -4,11 +4,11 @@
       <v-card
         class="d-flex flex-column align-center justify-space-around background"
       >
-        <h2 class="white--text text-lg-h2 font-weight-medium">
+        <h2 class="white--text text-lg-h2 font-weight-medium text-center">
           Faites vous livrer plus <span class="blue--text font-weight-black">V'EAT</span> que
           l'éclair
         </h2>
-        <div>
+        <div class="text-center">
           <v-form>
             <v-card class="pa-6 transparent">
               <v-text-field
@@ -39,7 +39,23 @@
         </div>
     </v-card>
     </div>
+    <div class="separator"></div>
     <div class="d-flex justify-space-around align-center flex-column flex-md-row">
+      <div class="join-us">
+        <v-img src="../assets/livreur.jpg" width="100%" aspect-ratio="1.5">
+          <div class="d-flex flex-column justify-end h-100 pa-5 inset">
+            <h3 class="text-xl-h3 font-weight-bold white--text">Roulez pour nous</h3>
+            <p class="text-xl-p white--text">Livrer selon votre emploi du temps et bénéficier d'avantages exclusifs</p>
+            <v-btn :to="{name: 'register', query: {role: 'deliverer'}}"
+            elevation="24"
+            outlined
+            rounded
+            text
+            class="red w-20"
+            >Démarrer</v-btn>
+          </div>
+        </v-img>
+      </div>
       <div class="join-us">
         <v-img src="../assets/restaurateur.jpg">
           <div class="d-flex flex-column justify-end h-100 pa-5 inset">
@@ -51,21 +67,6 @@
               rounded
               text
               class="red w-20"
-            >Démarrer</v-btn>
-          </div>
-        </v-img>
-      </div>
-      <div class="join-us">
-        <v-img src="../assets/livreur.jpg" width="100%" aspect-ratio="1.5">
-          <div class="d-flex flex-column justify-end h-100 pa-5 inset-2">
-            <h3 class="text-xl-h3 font-weight-bold white--text">Roulez pour nous</h3>
-            <p class="text-xl-p white--text">Livrer selon votre emploi du temps et bénéficier d'avantages exclusifs</p>
-            <v-btn :to="{name: 'register', query: {role: 'deliverer'}}"
-            elevation="24"
-            outlined
-            rounded
-            text
-            class="red w-20"
             >Démarrer</v-btn>
           </div>
         </v-img>
@@ -124,9 +125,11 @@ export default {
   height: 100%;
 }
 .inset {
-  box-shadow: inset 0em -10em #0000008f;
+  box-shadow: inset 0em -10em 10em #000000d2;
 }
-.inset-2 {
-  box-shadow: inset 0em -10em #000000d2;
+.separator {
+  width: 100%;
+  height: 5px;
+  background: black;
 }
 </style>
