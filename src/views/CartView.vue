@@ -7,8 +7,7 @@
           <Commande />
         </v-col>
         <v-col>
-          <v-container>
-            <v-card class="ma-0">
+            <v-card class="mt-3 pb-2" outlined>
               <v-row>
                 <v-col>
                   <v-simple-table>
@@ -35,13 +34,23 @@
                   </v-simple-table>
                 </v-col>
               </v-row>
+              <v-row class="ma-0 d-flex justify-center">
+                <v-form v-model="valid">
+                  <v-text-field
+                  v-model="adresse"
+                  label="Adresse"
+                  name="Adresse"
+                  :rules="[
+                    v => !!v || 'Une adresse est requise' ]">
+                  </v-text-field>
+                </v-form>
+              </v-row>
               <v-row>
                 <v-col>
-                  <v-btn color="green" @click="startCommand()" class="ml-4" width="95%"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
+                  <v-btn :disabled="!valid" color="green" @click="startCommand(adresse)" class="ml-4" width="95%"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
                 </v-col>
               </v-row>
             </v-card>
-          </v-container>
         </v-col>
       </v-row>
     </v-card>
@@ -71,13 +80,17 @@ export default Vue.extend({
   components: {
     Commande
   },
+  data: () => ({
+    adresse: undefined,
+    valid: false
+  }),
   computed: {
     ...mapState('cart', ['order'])
   },
   methods: {
     ...mapActions('cart', ['createOrder']),
-    async startCommand () {
-      await this.createOrder()
+    async startCommand (adresse) {
+      await this.createOrder(adresse)
     }
   }
 })
