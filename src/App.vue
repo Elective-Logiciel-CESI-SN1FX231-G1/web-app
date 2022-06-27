@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <NavBar />
+    <notify-error/>
     <v-main>
       <router-view/>
     </v-main>
@@ -13,13 +14,15 @@ import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import NavBar from '@/components/Navbar.vue'
 import FooterComponent from '@/components/FooterComponent.vue'
+import NotifyError from '@/components/NotifyError.vue'
 import setTheme from '@/assets/setTheme'
 
 export default Vue.extend({
   name: 'App',
   components: {
     NavBar,
-    FooterComponent
+    FooterComponent,
+    NotifyError
   },
   data: () => ({
     //

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div>
-      <h1>Profile</h1>
+      <h1>Profil</h1>
       <profile-form :value="user"></profile-form>
     </div>
   </v-container>
