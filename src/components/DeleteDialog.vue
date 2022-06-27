@@ -14,7 +14,7 @@
       </v-card-title>
       <v-card-text>
         <v-alert type="error">
-          Cette actions est définitive
+          Cette action est définitive
         </v-alert>
       </v-card-text>
       <v-card-actions>
