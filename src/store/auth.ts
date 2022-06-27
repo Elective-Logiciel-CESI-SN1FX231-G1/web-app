@@ -17,11 +17,19 @@ interface AuthState {
   token?: string
 }
 
+let user, token
+try {
+  token = localStorage.getItem('auth/token')
+  user = JSON.parse(localStorage.getItem('auth/user'))
+} catch (error) {
+
+}
+
 const authModule : Module<AuthState, unknown> = {
   namespaced: true,
   state: () => ({
-    user: JSON.parse(localStorage.getItem('auth/user')),
-    token: localStorage.getItem('auth/token')
+    user,
+    token
   }),
   getters: {
     user: (state) => () => {
@@ -55,6 +63,11 @@ const authModule : Module<AuthState, unknown> = {
       context.commit('SET_TOKEN', undefined)
       context.commit('SET_USER', undefined)
     }
+
+    // async fetch (context) {
+    //   const { data } = await axios.get('/auth/api/auth/verify')
+    //   context.commit('SET_USER', data)
+    // }
   }
 }
 
