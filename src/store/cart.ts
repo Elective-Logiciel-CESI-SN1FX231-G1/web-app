@@ -100,9 +100,17 @@ const cartModule : Module<CartState, unknown> = {
     }
   },
   actions: {
-    async createOrder (context) {
-      const { data } = (await axios.post('api/orders',
-        context.state.order
+    async createOrder (context, adresse) {
+      const order = JSON.parse(JSON.stringify(context.state.order))
+      order.products = order.products.map(p => p._id)
+      order.menus = order.menus.map(m => m._id)
+      order.address = adresse
+      order.position = {
+        lon: 0,
+        lat: 0
+      }
+      const { data } = (await axios.post('shop/api/orders',
+        order
       ))
       context.commit('SET_ORDER', data.order)
     },

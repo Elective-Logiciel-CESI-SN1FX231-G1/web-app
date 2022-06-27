@@ -79,8 +79,8 @@
           <h1>Panier</h1>
           <v-card outlined>
              <v-row
-            v-for="menu in order.menus"
-            :key="menu._id"
+            v-for="(menu, id) in order.menus"
+            :key="menu._id + id"
             class="ma-0">
               <v-col>
                 <p class="text-h6 font-weight-bold" v-text="menu.name"></p>
@@ -91,8 +91,8 @@
               </v-col>
             </v-row>
             <v-row
-            v-for="product in order.products"
-            :key="product._id"
+            v-for="(product, id) in order.products"
+            :key="product._id + id"
             class="ma-0">
               <v-col>
                 <p class="text-h6 font-weight-bold" v-text="product.name"></p>
