@@ -65,7 +65,7 @@
               </v-row>
               <v-row>
                 <v-col>
-                  <v-btn :disabled="!valid" color="green" @click="startCommand" class="ml-4" width="95%"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
+                  <v-btn :disabled="!valid" color="green" @click="startCommand" class="ml-4" width="95%" :to="{ name: 'validation' }"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
                 </v-col>
               </v-row>
             </v-card>
