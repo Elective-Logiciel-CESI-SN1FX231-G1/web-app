@@ -12,6 +12,7 @@ import LogsView from '../views/LogsView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ShopView from '../views/ShopView.vue'
 import ShopRestaurantView from '../views/ShopRestaurantView.vue'
+import SponsorView from '../views/SponsorView.vue'
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,11 @@ const routes: Array<RouteConfig> = [
     path: '/shop/:id',
     name: 'shop-restaurant',
     component: ShopRestaurantView
+  },
+  {
+    path: '/sponsor',
+    name: 'sponsor',
+    component: SponsorView
   }
 ]
 

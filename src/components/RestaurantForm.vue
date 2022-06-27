@@ -82,6 +82,11 @@ export default Vue.extend({
       valid: false
     }
   },
+  watch: {
+    value () {
+      this.restaurant = JSON.parse(JSON.stringify(this.value))
+    }
+  },
   computed: {
 
   },
