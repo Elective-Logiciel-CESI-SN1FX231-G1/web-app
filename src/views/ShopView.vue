@@ -1,5 +1,7 @@
 <template>
-  <Restaurants />
+  <v-container>
+    <Restaurants />
+  </v-container>
 </template>
 
 <script lang="ts">
