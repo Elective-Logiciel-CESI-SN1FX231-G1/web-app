@@ -39,7 +39,7 @@
             v-for="restaurant in props.items"
             :key="restaurant._id"
           >
-          <router-link :to="{name:'shop-restaurant',params:{id:restaurant._id}}">
+          <router-link :to="{name:'shop-restaurant',params:{id:restaurant._id}}" style="text-decoration: none;">
             <restaurant :value="restaurant"/>
           </router-link>
           </v-col>

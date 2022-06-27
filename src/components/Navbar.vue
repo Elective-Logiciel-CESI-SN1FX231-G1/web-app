@@ -60,13 +60,13 @@
                   <span>{{ item.title }}</span>
               </v-list-item-title>
             </v-list-item>
-            <v-list-item :to="{name:'sponsor'}">
+            <v-list-item :to="{name:'sponsor'}" v-if="['client','restaurateur','deliverer'].includes(user.role)">
               <v-list-item-title class="font-weight-bold">
                   <v-icon class="mr-2">mdi-logout</v-icon>
                   <span>Parrainage</span>
               </v-list-item-title>
             </v-list-item>
-            <v-list-item @click="logout">
+            <v-list-item @click="$router.push({name:'home'});logout()">
               <v-list-item-title class="font-weight-bold">
                   <v-icon class="mr-2 red--text">mdi-logout</v-icon>
                   <span class="red--text">Se déconnecter</span>
@@ -93,7 +93,7 @@
                 <v-icon>mdi-account-circle-outline</v-icon>
               </v-btn>
             </template>
-            <login-form @login="loginDialog=false" />
+            <login-form />
           </v-dialog>
         </li>
       </template>
@@ -112,6 +112,11 @@ export default {
   data () {
     return {
       loginDialog: false
+    }
+  },
+  watch: {
+    user () {
+      this.loginDialog = false
     }
   },
   computed: {
