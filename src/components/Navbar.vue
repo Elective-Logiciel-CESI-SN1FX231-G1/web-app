@@ -25,6 +25,14 @@
       </li>
       <template v-if="user && user.role === 'client'">
         <li>
+          <v-btn text :to="{ name: 'shop' }">
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-2">Commander</span>
+              <v-icon>mdi-hamburger-plus</v-icon>
+            </div>
+          </v-btn>
+        </li>
+        <li>
           <v-btn text :to="{ name: 'cart' }">
             <div class="d-flex flex-column-reverse d-lg-block">
               <span class="mr-2">Panier</span>
@@ -62,7 +70,7 @@
             </v-list-item>
             <v-list-item :to="{name:'sponsor'}" v-if="['client','restaurateur','deliverer'].includes(user.role)">
               <v-list-item-title class="font-weight-bold">
-                  <v-icon class="mr-2">mdi-logout</v-icon>
+                  <v-icon class="mr-2">mdi-account-multiple-plus-outline</v-icon>
                   <span>Parrainage</span>
               </v-list-item-title>
             </v-list-item>
@@ -76,6 +84,14 @@
         </v-menu>
       </li>
       <template v-else>
+        <li>
+          <v-btn text :to="{ name: 'shop' }">
+            <div class="d-flex flex-column-reverse d-lg-block font-weight-bold">
+              <span class="mr-2">Commander</span>
+              <v-icon>mdi-hamburger-plus</v-icon>
+            </div>
+          </v-btn>
+        </li>
         <li>
           <v-btn text class="font-weight-bold" :to="{ name: 'register' }">
             <span class="mr-2"> S'enregistrer</span>
