@@ -1,5 +1,7 @@
 <template>
-  <Restaurants />
+  <div>
+    <Restaurants />
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,7 +10,6 @@ import Restaurants from '../components/Restaurants.vue'
 
 export default Vue.extend({
   name: 'ShopView',
-
   components: {
     Restaurants
   }

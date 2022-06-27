@@ -7,16 +7,16 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left text-h6 font-weight-bold">
+                  <th class="text-left text-subtitle text-md-h6 font-weight-bold">
                     Image
                   </th>
-                  <th class="text-left text-h6 font-weight-bold">
+                  <th class="text-left text-subtitle text-md-h6 font-weight-bold">
                     Intitulé
                   </th>
-                  <th class="text-left text-h6 font-weight-bold">
+                  <th class="text-left text-subtitle text-md-h6 font-weight-bold">
                     Description
                   </th>
-                  <th class="text-left text-h6 font-weight-bold">
+                  <th class="text-left text-subtitle text-md-h6 font-weight-bold">
                     Prix
                   </th>
                 </tr>
@@ -26,16 +26,16 @@
                   v-for="menu in order.menus"
                   :key="menu._id"
                 >
-                  <td width="13em"><v-img :src="menu.image" aspect-ratio="1" width="13em"/></td>
-                  <td><p class="text-h5 font-weight-bold ma-0" v-text="menu.name"></p></td>
-                  <td><p v-text="menu.description" class="text-h6"></p>
+                  <td class="image"><v-img :src="menu.image" aspect-ratio="1" class="image"/></td>
+                  <td><p class="text-subtitle text-md-h6 font-weight-bold ma-0" v-text="menu.name"></p></td>
+                  <td><p v-text="menu.description" class="text-subtitle text-md-h6"></p>
                     <span class="ma-0">Contient : </span>
                     <div style="display: inline;">
                       {{menu.products.map(p => p.name).join(', ')}}
                     </div>
                   </td>
                   <td>
-                    <p class="text-h5 font-weight-bold"><span v-text="menu.price"></span>€
+                    <p class="text-subtitle text-md-h6 font-weight-bold"><span v-text="menu.price"></span>€
                       <v-btn color="red" @click="tryRemoveMenu(menu)" class="ml-4"><v-icon>mdi-cart-remove</v-icon></v-btn>
                     </p>
                   </td>
@@ -44,11 +44,11 @@
                 v-for="product in order.products"
                 :key="product._id"
                 >
-                  <td width="13em"><v-img :src="product.image" aspect-ratio="1" width="13em"/></td>
-                  <td><p class="text-h5 font-weight-bold ma-0" v-text="product.name"></p></td>
-                  <td><p class="text-h6" v-text="product.description"></p></td>
+                  <td class="image"><v-img :src="product.image" aspect-ratio="1" class="image"/></td>
+                  <td><p class="text-subtitle text-md-h6 font-weight-bold ma-0" v-text="product.name"></p></td>
+                  <td><p class="text-subtitle text-md-h6" v-text="product.description"></p></td>
                   <td>
-                    <p class="text-h5 font-weight-bold"><span v-text="product.price"></span>€
+                    <p class="text-subtitle text-md-h6 font-weight-bold"><span v-text="product.price"></span>€
                       <v-btn color="red" @click="tryRemoveProduct(product)" class="ml-6"><v-icon>mdi-cart-remove</v-icon></v-btn>
                     </p>
                   </td>
@@ -77,10 +77,7 @@ export default Vue.extend({
     ...mapState('cart', ['order'])
   },
   methods: {
-    ...mapActions('cart', ['createOrder', 'removeProductToCart', 'removeMenuToCart']),
-    async startCommand () {
-      await this.createOrder()
-    },
+    ...mapActions('cart', ['removeProductToCart', 'removeMenuToCart']),
     async tryRemoveProduct (product) {
       await this.removeProductToCart(product)
     },
@@ -90,3 +87,14 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.image {
+  width: 7em;
+}
+@media (min-width: 900px) {
+  .image {
+    width: 13em;
+  }
+}
+</style>
