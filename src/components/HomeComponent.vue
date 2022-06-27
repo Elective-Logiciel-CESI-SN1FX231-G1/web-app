@@ -10,7 +10,7 @@
         </h2>
         <div class="text-center">
           <v-form>
-            <v-card class="pa-6 transparent">
+            <v-card class="pa-6 transparent d-flex">
               <v-text-field
                 label="Votre adresse"
                 placeholder="Saisissez votre adresse"
@@ -18,8 +18,14 @@
                 hide-details
                 outlined
                 clearable
-                class="white"
+                class="white radius"
               ></v-text-field>
+              <v-btn :to="{name: 'shop'}"
+              outlined
+              text
+              class="white radius"
+              height="40px"
+            >Démarrer</v-btn>
             </v-card>
           </v-form>
           <p class="text-xl-h5 white--text">
@@ -141,5 +147,8 @@ export default {
   width: 100%;
   height: 5px;
   background: black;
+}
+.radius {
+  border-radius: 0 !important;
 }
 </style>
