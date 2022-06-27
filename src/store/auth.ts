@@ -20,8 +20,8 @@ interface AuthState {
 const authModule : Module<AuthState, unknown> = {
   namespaced: true,
   state: () => ({
-    user: undefined,
-    token: undefined
+    user: JSON.parse(localStorage.getItem('auth/user')),
+    token: localStorage.getItem('auth/token')
   }),
   getters: {
     user: (state) => () => {
@@ -34,9 +34,11 @@ const authModule : Module<AuthState, unknown> = {
   mutations: {
     SET_TOKEN (state, token) {
       state.token = token
+      localStorage.setItem('auth/token', token)
     },
     SET_USER (state, user) {
       state.user = user
+      localStorage.setItem('auth/user', JSON.stringify(user))
     }
   },
   actions: {
