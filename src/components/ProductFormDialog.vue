@@ -4,7 +4,7 @@
     persistent
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="success" dark fab small v-bind="attrs" v-on="on">
+      <v-btn color="success" dark fab tile small v-bind="attrs" v-on="on">
         <v-icon v-if="value && value._id">mdi-pencil</v-icon>
         <v-icon v-else>mdi-plus</v-icon>
       </v-btn>

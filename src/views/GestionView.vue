@@ -58,6 +58,7 @@
                               <v-list-item-subtitle v-html="product.description"></v-list-item-subtitle>
                             </v-list-item-content>
                             <product-form-dialog @update="fetchProducts" :value="product"></product-form-dialog>
+                            <delete-dialog label="un produit" @delete="deleteProduct(product._id)"></delete-dialog>
                           </v-list-item>
                           <v-divider  :key="'d'+product._id"></v-divider>
                         </template>
@@ -109,6 +110,7 @@
                               <v-list-item-subtitle v-html="menu.description"></v-list-item-subtitle>
                             </v-list-item-content>
                             <menu-form-dialog @update="fetchMenus" :value="menu"></menu-form-dialog>
+                            <delete-dialog label="un menu" @delete="deleteMenu(menu._id)"></delete-dialog>
                           </v-list-item>
                           <v-divider  :key="'d'+menu._id"></v-divider>
                         </template>
@@ -133,6 +135,7 @@ import ProductFormDialog from '@/components/ProductFormDialog.vue'
 import MenuFormDialog from '@/components/MenuFormDialog.vue'
 import Restaurant from '@/components/Restaurant.vue'
 import DelayedSearchBar from '@/components/DelayedSearchBar.vue'
+import DeleteDialog from '@/components/DeleteDialog.vue'
 
 export default Vue.extend({
   name: 'Gestion',
@@ -142,7 +145,8 @@ export default Vue.extend({
     RestaurantFormDialog,
     Restaurant,
     DelayedSearchBar,
-    MenuFormDialog
+    MenuFormDialog,
+    DeleteDialog
   },
   data: () => ({
     restaurant: undefined,
@@ -175,6 +179,14 @@ export default Vue.extend({
       const menus = (await this.axios.get(`/shop/api/menus?q=${this.menuQuery}&page=${this.menuPage}&size=${this.menuItemPerPage === -1 ? 0 : this.menuItemPerPage}`)).data
       this.menus = menus.results
       this.menuCount = menus.count
+    },
+    async deleteMenu (_id: string) {
+      await this.axios.delete(`/shop/api/menus/${_id}`)
+      await this.fetchMenus()
+    },
+    async deleteProduct (_id: string) {
+      await this.axios.delete(`/shop/api/products/${_id}`)
+      await this.fetchProducts()
     }
   },
   async mounted () {
