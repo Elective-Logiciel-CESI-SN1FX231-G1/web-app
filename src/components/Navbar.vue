@@ -60,6 +60,12 @@
                   <span>{{ item.title }}</span>
               </v-list-item-title>
             </v-list-item>
+            <v-list-item :to="{name:'sponsor'}">
+              <v-list-item-title class="font-weight-bold">
+                  <v-icon class="mr-2">mdi-logout</v-icon>
+                  <span>Parrainage</span>
+              </v-list-item-title>
+            </v-list-item>
             <v-list-item @click="logout">
               <v-list-item-title class="font-weight-bold">
                   <v-icon class="mr-2 red--text">mdi-logout</v-icon>
