@@ -79,9 +79,11 @@ export default Vue.extend({
     value: { type: Object, required: false, default: () => ({}) }
   },
   data () {
+    const menu = JSON.parse(JSON.stringify(this.value))
+    if (menu?.products?.length && typeof (menu.products[0]) === 'object') menu.products = menu.products.map(p => p._id)
     return {
       types,
-      menu: JSON.parse(JSON.stringify(this.value)),
+      menu,
       valid: false,
       products: []
     }
