@@ -14,8 +14,10 @@
                     <template>
                       <tbody>
                         <tr>
-                          <td><p class="text-h6">Prix commande</p></td>
-                          <td><p class="text-h6"><span v-text="order.price"></span>€</p></td>
+                          <td v-if="checkbox"><p class="text-h6">Prix commande (30% réduction)</p></td>
+                          <td v-else><p class="text-h6">Prix commande</p></td>
+                          <td v-if="checkbox"><p class="text-h6"><span v-text="(order.price * 0.70).toFixed(2)"></span>€</p></td>
+                          <td v-else><p class="text-h6"><span v-text="order.price"></span>€</p></td>
                         </tr>
                         <tr>
                           <td><p class="text-h6">Prix livraison</p></td>
@@ -27,17 +29,33 @@
                         </tr>
                         <tr>
                           <td><p class="text-h6">Prix total</p></td>
-                          <td><p class="text-h6" ><span v-text="order.price + order.deliveryPrice + order.commissionPrice"></span>€</p></td>
+                          <td v-if="checkbox"><p class="text-h6" ><span v-text="(order.price * 0.70 + order.deliveryPrice + order.commissionPrice).toFixed(2)"></span>€</p></td>
+                          <td v-else><p class="text-h6" ><span v-text="order.price + order.deliveryPrice + order.commissionPrice"></span>€</p></td>
                         </tr>
                       </tbody>
                     </template>
                   </v-simple-table>
                 </v-col>
               </v-row>
+              <v-card outlined class="mt-4">
+                <v-row v-for="coupon in coupons"
+                :key="coupon._id">
+                  <v-col class="d-flex flex-column align-center justify-center">
+                    <p class="text-h5 font-weight-bold green--text mt-3 mb-0">Vous avez un bon de réduction !</p>
+                    <p class="mt-4">30% de réduction sur votre commande</p>
+                    <v-checkbox
+                      v-model="checkbox"
+                      :label="'Activer ma réduction'"
+                      color="blue"
+                      class="mt-0"
+                    ></v-checkbox>
+                  </v-col>
+                </v-row>
+              </v-card>
               <v-row class="ma-0 d-flex justify-center">
                 <v-form v-model="valid">
                   <v-text-field
-                  v-model="adresse"
+                  v-model="address"
                   label="Adresse"
                   name="Adresse"
                   :rules="[
@@ -47,7 +65,7 @@
               </v-row>
               <v-row>
                 <v-col>
-                  <v-btn :disabled="!valid" color="green" @click="startCommand(adresse)" class="ml-4" width="95%"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
+                  <v-btn :disabled="!valid" color="green" @click="startCommand" class="ml-4" width="95%" :to="{ name: 'validation' }"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
                 </v-col>
               </v-row>
             </v-card>
@@ -81,16 +99,28 @@ export default Vue.extend({
     Commande
   },
   data: () => ({
-    adresse: undefined,
-    valid: false
+    address: undefined,
+    valid: false,
+    coupons: [],
+    checkbox: false
   }),
   computed: {
-    ...mapState('cart', ['order'])
+    ...mapState('cart', ['order']),
+    ...mapState('auth', ['user'])
   },
   methods: {
     ...mapActions('cart', ['createOrder']),
-    async startCommand (adresse) {
-      await this.createOrder(adresse)
+    async startCommand () {
+      if (this.checkbox) await this.createOrder({ address: this.address, coupon: this.coupons[0] })
+      else await this.createOrder({ address: this.address, coupon: undefined })
+    }
+  },
+  async mounted () {
+    if (this.user) {
+      const coupons = (await this.axios.get('/shop/api/coupons/user/' + this.user._id)).data
+      for (const coupon of coupons) {
+        if (!coupon.isUsed && coupon.coupon === 'client') this.coupons.push(coupon)
+      }
     }
   }
 })

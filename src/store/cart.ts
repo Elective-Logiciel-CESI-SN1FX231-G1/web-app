@@ -100,19 +100,27 @@ const cartModule : Module<CartState, unknown> = {
     }
   },
   actions: {
-    async createOrder (context, adresse) {
+    async createOrder (context, { address, coupon }) {
       const order = JSON.parse(JSON.stringify(context.state.order))
       order.products = order.products.map(p => p._id)
       order.menus = order.menus.map(m => m._id)
-      order.address = adresse
+      order.address = address
       order.position = {
         lon: 0,
         lat: 0
       }
-      const { data } = (await axios.post('shop/api/orders',
-        order
-      ))
-      context.commit('SET_ORDER', data.order)
+      if (coupon) order.coupon = coupon._id
+      await axios.post('shop/api/orders', order)
+      context.commit('SET_ORDER', {
+        products: [],
+        menus: [],
+        price: 0,
+        deliveryPrice: 5,
+        commissionPrice: 3,
+        restaurant: undefined,
+        comment: '',
+        address: ''
+      })
     },
     addProductToCart (context, product) {
       if (!context.state.order.restaurant) context.commit('SET_RESTAURANT', product.restaurant)

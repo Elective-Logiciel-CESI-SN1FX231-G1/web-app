@@ -72,7 +72,7 @@ export default Vue.extend({
       try {
         await this.axios.post('/sponsor/api/sponsor-code', { code: this.code })
       } catch (error) {
-        if (error.response.data === 'You have been sponsored already') this.error = 'Vous avez déja été parrainer'
+        if (error.response.data === 'You have been sponsored already') this.error = 'Vous avez déja été parrainé'
         else this.error = 'Code invalide'
       }
     }

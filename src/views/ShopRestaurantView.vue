@@ -103,7 +103,7 @@
               </v-col>
             </v-row>
             <v-row class="ma-0">
-              <v-col v-if="order.products.length > 0 || order.menus.length > 0">
+              <v-col v-if="(order.products && order.products.length > 0) || (order.menus && order.menus.length > 0)">
                 <p>Livraison : <span v-text="order.deliveryPrice"></span>€</p>
                 <p>Commission : <span v-text="order.commissionPrice"></span>€</p>
                 <p class="text-h5 font-weight-bold">Prix final : <span v-text="order.price + order.deliveryPrice + order.commissionPrice"></span>€</p>
