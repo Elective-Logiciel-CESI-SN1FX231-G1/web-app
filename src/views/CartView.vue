@@ -17,7 +17,7 @@
                           <td v-if="checkbox"><p class="text-h6">Prix commande (30% réduction)</p></td>
                           <td v-else><p class="text-h6">Prix commande</p></td>
                           <td v-if="checkbox"><p class="text-h6"><span v-text="(order.price * 0.70).toFixed(2)"></span>€</p></td>
-                          <td v-else><p class="text-h6"><span v-text="order.price"></span>€</p></td>
+                          <td v-else><p class="text-h6"><span v-text="(order.price).toFixed(2)"></span>€</p></td>
                         </tr>
                         <tr>
                           <td><p class="text-h6">Prix livraison</p></td>
@@ -30,7 +30,7 @@
                         <tr>
                           <td><p class="text-h6">Prix total</p></td>
                           <td v-if="checkbox"><p class="text-h6" ><span v-text="(order.price * 0.70 + order.deliveryPrice + order.commissionPrice).toFixed(2)"></span>€</p></td>
-                          <td v-else><p class="text-h6" ><span v-text="order.price + order.deliveryPrice + order.commissionPrice"></span>€</p></td>
+                          <td v-else><p class="text-h6" ><span v-text="(order.price + order.deliveryPrice + order.commissionPrice).toFixed(2)"></span>€</p></td>
                         </tr>
                       </tbody>
                     </template>
@@ -65,7 +65,7 @@
               </v-row>
               <v-row>
                 <v-col>
-                  <v-btn :disabled="!valid" color="green" @click="startCommand" class="ml-4" width="95%" :to="{ name: 'validation' }"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
+                  <v-btn :disabled="!valid" color="green" @click="startCommand" class="ml-4" width="95%"><v-icon class="mr-2">mdi-credit-card-outline</v-icon>Payer ma commande</v-btn>
                 </v-col>
               </v-row>
             </v-card>
@@ -113,6 +113,7 @@ export default Vue.extend({
     async startCommand () {
       if (this.checkbox) await this.createOrder({ address: this.address, coupon: this.coupons[0] })
       else await this.createOrder({ address: this.address, coupon: undefined })
+      this.$router.push({ name: 'validation' })
     }
   },
   async mounted () {
