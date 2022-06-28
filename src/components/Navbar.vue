@@ -25,6 +25,14 @@
       </li>
       <template v-if="user && user.role === 'client'">
         <li>
+          <v-btn text :to="{ name: 'order' }">
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-2">Ma Commande</span>
+              <v-icon>mdi-noodles</v-icon>
+            </div>
+          </v-btn>
+        </li>
+        <li>
           <v-btn text :to="{ name: 'shop' }">
             <div class="d-flex flex-column-reverse d-lg-block">
               <span class="mr-2">Commander</span>
