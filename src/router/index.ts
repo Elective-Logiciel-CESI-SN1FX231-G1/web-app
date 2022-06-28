@@ -55,8 +55,8 @@ const routes: Array<RouteConfig> = [
     component: DashboardView
   },
   {
-    path: '/livraison',
-    name: 'livraison',
+    path: '/livraisons',
+    name: 'livraisons',
     component: LivraisonView
   },
   {
