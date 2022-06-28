@@ -49,6 +49,14 @@
           </v-btn>
         </li>
       </template>
+      <li v-if="user && (user.role === 'restaurateur' || user.role === 'commercial')">
+        <v-btn text :to="{ name: 'statistiques' }">
+          <div class="d-flex flex-column-reverse d-lg-block">
+            <span class="mr-2">Statistiques</span>
+            <v-icon>mdi-chart-line</v-icon>
+          </div>
+        </v-btn>
+      </li>
       <template v-if="user && user.role === 'technician'">
         <li>
           <v-btn text :to="{ name: 'logs' }">
@@ -159,11 +167,6 @@ export default {
                 title: 'Gestion',
                 path: '/gestion',
                 icon: 'mdi-cog-outline'
-              },
-              {
-                title: 'Statistiques',
-                path: '/statistiques',
-                icon: 'mdi-chart-line'
               }
             ]
           case 'deliverer':
