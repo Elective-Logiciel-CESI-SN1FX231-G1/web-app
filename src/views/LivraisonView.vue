@@ -51,7 +51,7 @@
                             </v-col>
                           </v-row>
                         </v-list-item-title>
-                        <v-list-item-subtitle
+                        <v-list-item-subtitle v-if="order.comment !== ''"
                           v-html="'Commentaire : ' + order.comment"
                         ></v-list-item-subtitle>
                       </v-list-item-content>
@@ -108,12 +108,21 @@
                                 <span v-if="order.status === 'preparating'">
                                   En préparation</span
                                 >
-                                <span v-else> Prêt à être récupérer</span>
+                                <span v-else-if="order.status === 'waitingDelivery'"> Prêt à être récupérer</span>
+                                <span v-else> En cours de livraison</span>
                               </p>
                             </v-col>
                           </v-row>
+                          <v-row>
+                            <v-col>
+                              <v-btn color="green" @click="deliverOrder(order._id)">
+                                <span class="mr-2">J'ai récupéré la commande</span>
+                                <v-icon>mdi-checkbox-marked-circle</v-icon>
+                              </v-btn>
+                            </v-col>
+                          </v-row>
                         </v-list-item-title>
-                        <v-list-item-subtitle
+                        <v-list-item-subtitle v-if="order.comment !== ''"
                           v-html="'Commentaire : ' + order.comment"
                         ></v-list-item-subtitle>
                       </v-list-item-content>
@@ -161,6 +170,10 @@ export default Vue.extend({
       const acceptOrders = (await this.axios.get('/orders/api/orders?status=preparating,waitingDelivery,delivering&deliverer=me')).data
       this.acceptedOrders = acceptOrders.results
       this.acceptedOrdersCount = acceptOrders.count
+    },
+    async deliverOrder (id) {
+      await this.axios.post('/orders/api/orders/' + id + '/deliver')
+      await this.fetchData()
     },
     async fetchData () {
       await Promise.all([this.fetchPreparatingOrder(), this.fetchAcceptedOrders()])
