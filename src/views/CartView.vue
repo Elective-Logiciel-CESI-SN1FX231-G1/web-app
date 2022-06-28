@@ -4,7 +4,7 @@
     v-if="order.price > 0">
       <v-row>
         <v-col class="col-12 col-md-8">
-          <Commande />
+          <Commande :value="order" editable/>
         </v-col>
         <v-col>
             <v-card class="mt-3 pb-2" outlined>

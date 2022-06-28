@@ -23,7 +23,7 @@
               </thead>
               <tbody>
                 <tr
-                  v-for="menu in order.menus"
+                  v-for="menu in value.menus"
                   :key="menu._id"
                 >
                   <td class="image"><v-img :src="menu.image" aspect-ratio="1" class="image"/></td>
@@ -36,20 +36,20 @@
                   </td>
                   <td>
                     <p class="text-subtitle text-md-h6 font-weight-bold"><span v-text="menu.price"></span>€
-                      <v-btn color="red" @click="tryRemoveMenu(menu)" class="ml-4"><v-icon>mdi-cart-remove</v-icon></v-btn>
+                      <v-btn color="red" @click="tryRemoveMenu(menu)" class="ml-4" v-if="editable"><v-icon>mdi-cart-remove</v-icon></v-btn>
                     </p>
                   </td>
                 </tr>
                 <tr
-                v-for="product in order.products"
-                :key="product._id"
+                  v-for="product in value.products"
+                  :key="product._id"
                 >
                   <td class="image"><v-img :src="product.image" aspect-ratio="1" class="image"/></td>
                   <td><p class="text-subtitle text-md-h6 font-weight-bold ma-0" v-text="product.name"></p></td>
                   <td><p class="text-subtitle text-md-h6" v-text="product.description"></p></td>
                   <td>
                     <p class="text-subtitle text-md-h6 font-weight-bold"><span v-text="product.price"></span>€
-                      <v-btn color="red" @click="tryRemoveProduct(product)" class="ml-6"><v-icon>mdi-cart-remove</v-icon></v-btn>
+                      <v-btn color="red" @click="tryRemoveProduct(product)" class="ml-6" v-if="editable"><v-icon>mdi-cart-remove</v-icon></v-btn>
                     </p>
                   </td>
                 </tr>
@@ -64,17 +64,21 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default Vue.extend({
   components: {
+  },
+  props: {
+    value: { type: Object, required: true },
+    editable: { type: Boolean, required: false, default: false }
   },
   data () {
     return {
     }
   },
   computed: {
-    ...mapState('cart', ['order'])
+    // ...mapState('cart', ['order'])
   },
   methods: {
     ...mapActions('cart', ['removeProductToCart', 'removeMenuToCart']),
