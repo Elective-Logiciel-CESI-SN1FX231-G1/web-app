@@ -41,12 +41,6 @@ export default Vue.extend({
   mounted () {
     this.$vuetify.lang.current = 'fr'
     setTheme(this.user?.role, this.$vuetify.theme.themes)
-    this.axios.interceptors.request.use((config) => {
-      if (!this.token) return config
-      config.headers = config.headers || {}
-      config.headers.Authorization = `Bearer ${this.token}`
-      return config
-    })
   }
 })
 </script>
