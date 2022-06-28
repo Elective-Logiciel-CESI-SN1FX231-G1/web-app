@@ -15,6 +15,7 @@ import ShopRestaurantView from '../views/ShopRestaurantView.vue'
 import SponsorView from '../views/SponsorView.vue'
 import DocView from '../views/DocView.vue'
 import ValidationView from '../views/ValidationView.vue'
+import OrderView from '../views/OrderView.vue'
 
 Vue.use(VueRouter)
 
@@ -93,6 +94,11 @@ const routes: Array<RouteConfig> = [
     path: '/validation',
     name: 'validation',
     component: ValidationView
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: OrderView
   }
 ]
 

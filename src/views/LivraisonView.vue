@@ -1,6 +1,9 @@
 <template>
   <v-container>
     <v-card outlined>
+      <v-alert type="error" text v-if="error" @click="error = false">
+            Le code de validation n'est pas correct, veuillez réessayer
+      </v-alert>
       <v-row>
         <v-col class="col-12 col-md-6 text-center">
           <h2>Commandes sans livreur</h2>
@@ -64,7 +67,7 @@
           </v-card>
         </v-col>
         <v-col class="col-12 col-md-6 text-center">
-          <h2>Commandes acceptées</h2>
+          <h2>Commandes acceptée(s)</h2>
           <v-alert type="warning" text v-if="acceptedOrders.length === 0">
             Aucune commande n'a été acceptée
           </v-alert>
@@ -115,10 +118,55 @@
                           </v-row>
                           <v-row>
                             <v-col>
-                              <v-btn color="green" @click="deliverOrder(order._id)">
+                              <v-btn color="green" @click="deliverOrder(order._id)" :disabled="order.status !== 'waitingDelivery'">
                                 <span class="mr-2">J'ai récupéré la commande</span>
                                 <v-icon>mdi-checkbox-marked-circle</v-icon>
                               </v-btn>
+                            </v-col>
+                            <v-col>
+                              <v-dialog v-model="codeConfirmation">
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-btn color="green" v-on="on" v-bind="attrs" :disabled="order.status !== 'delivering'">
+                                    <span class="mr-2">J'ai livré la commande</span>
+                                    <v-icon>mdi-checkbox-marked-circle</v-icon>
+                                  </v-btn>
+                                </template>
+                                <v-card class="d-flex flex-column align-center">
+                                  <v-card-title class="text-h5 grey lighten-2">Code de confirmation</v-card-title>
+                                  <v-card-text class="text-center text-h6">
+                                    Veuillez inscrire le code de confirmation donné par votre client pour valider votre commande
+                                  </v-card-text>
+                                  <v-form v-model="valid">
+                                    <v-text-field style="max-width: 600px"
+                                    v-model="code"
+                                    label="Code"
+                                    name="Code"
+                                    :rules="[
+                                      v => !!v || 'Un code est requis',
+                                      v => v.match(/^\d{6}$/) || 'Un code est requis']">
+                                    </v-text-field>
+                                  </v-form>
+                                  <v-divider></v-divider>
+                                  <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                      color="green"
+                                      text
+                                      :disabled="!valid"
+                                      @click="codeConfirmation = false; deliverOrder(order._id, code)"
+                                    >
+                                      Valider
+                                    </v-btn>
+                                    <v-btn
+                                      color="red"
+                                      text
+                                      @click="codeConfirmation = false"
+                                    >
+                                      Je n'ai pas le code de confirmation
+                                    </v-btn>
+                                  </v-card-actions>
+                                </v-card>
+                              </v-dialog>
                             </v-col>
                           </v-row>
                         </v-list-item-title>
@@ -153,7 +201,11 @@ export default Vue.extend({
     acceptedOrders: [],
     acceptedOrdersCount: 0,
     acceptedOrdersPage: 1,
-    acceptedOrdersPerPage: 5
+    acceptedOrdersPerPage: 5,
+    codeConfirmation: false,
+    code: undefined,
+    valid: false,
+    error: false
   }),
   components: {},
   methods: {
@@ -171,9 +223,12 @@ export default Vue.extend({
       this.acceptedOrders = acceptOrders.results
       this.acceptedOrdersCount = acceptOrders.count
     },
-    async deliverOrder (id) {
-      await this.axios.post('/orders/api/orders/' + id + '/deliver')
-      await this.fetchData()
+    async deliverOrder (id, code) {
+      const currentOrder = (await this.axios.get('/orders/api/orders/' + id)).data
+      if (currentOrder.validationCode === code) {
+        await this.axios.post('/orders/api/orders/' + id + '/completed')
+        await this.fetchData()
+      } else this.error = true
     },
     async fetchData () {
       await Promise.all([this.fetchPreparatingOrder(), this.fetchAcceptedOrders()])
