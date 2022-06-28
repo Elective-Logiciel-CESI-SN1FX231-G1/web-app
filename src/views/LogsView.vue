@@ -56,7 +56,7 @@ export default Vue.extend({
     count: 0,
     itemPerPage: 10,
     names: {
-      connection: 'Historique de connection'
+      connection: 'Historique de connexion'
     }
   }),
   computed: {
