@@ -16,6 +16,7 @@ import SponsorView from '../views/SponsorView.vue'
 import DocView from '../views/DocView.vue'
 import ValidationView from '../views/ValidationView.vue'
 import OrderView from '../views/OrderView.vue'
+import UsersView from '../views/UsersView.vue'
 
 Vue.use(VueRouter)
 
@@ -99,6 +100,11 @@ const routes: Array<RouteConfig> = [
     path: '/order',
     name: 'order',
     component: OrderView
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: UsersView
   }
 ]
 

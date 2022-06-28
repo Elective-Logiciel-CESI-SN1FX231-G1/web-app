@@ -2,6 +2,9 @@
   <v-card :loading="loading">
     <v-card-title primary-title>
       {{ user._id ? 'Éditer mon compte' : 'Créer un compte'}}
+      <v-spacer></v-spacer>
+      <delete-dialog v-if="user._id" label="mon compte" @delete="deleteUser">
+      </delete-dialog>
     </v-card-title>
     <v-card-text>
       <v-form v-model="valid">
@@ -83,10 +86,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapActions } from 'vuex'
+import DeleteDialog from '../DeleteDialog.vue'
 
 export default Vue.extend({
   components: {
-
+    DeleteDialog
   },
   props: {
     value: { type: Object, required: false, default: () => ({}) },
@@ -110,7 +114,7 @@ export default Vue.extend({
     // ...mapState('auth', ['user'])
   },
   methods: {
-    ...mapActions('auth', ['login']),
+    ...mapActions('auth', ['login', 'logout']),
     async submit () {
       if (this.role) this.user.role = this.role
       if (this.user._id) await this.axios.patch(`/auth/api/users/${this.user._id}`, this.user)
@@ -121,8 +125,16 @@ export default Vue.extend({
           email: this.user.email,
           password: this.user.password
         })
+        this.$emit('save')
+        this.$router.push({ name: 'home' })
+      } else {
+        // await this.fetch()
+        this.$emit('save')
       }
-      this.$emit('save')
+    },
+    async deleteUser () {
+      await this.axios.delete(`/auth/api/users/${this.user._id}`, this.user)
+      this.logout()
       this.$router.push({ name: 'home' })
     }
   }

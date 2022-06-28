@@ -49,6 +49,14 @@
           </v-btn>
         </li>
       </template>
+      <li v-if="user && user.role === 'commercial'">
+        <v-btn text :to="{ name: 'users' }">
+          <div class="d-flex flex-column-reverse d-lg-block">
+            <span class="mr-2">Utilisateurs</span>
+            <v-icon>mdi-account-box-multiple-outline</v-icon>
+          </div>
+        </v-btn>
+      </li>
       <li v-if="user && (user.role === 'restaurateur' || user.role === 'commercial')">
         <v-btn text :to="{ name: 'statistiques' }">
           <div class="d-flex flex-column-reverse d-lg-block">
