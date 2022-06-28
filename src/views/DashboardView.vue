@@ -200,6 +200,7 @@ export default Vue.extend({
     Commande
   },
   data: () => ({
+    interval: undefined,
     validatingOrders: undefined,
     validatingOrdersCount: 0,
     validatingOrdersPage: 1,
@@ -254,6 +255,12 @@ export default Vue.extend({
   },
   async mounted () {
     await this.fetch()
+    this.interval = setInterval(() => {
+      this.fetch()
+    }, 10000)
+  },
+  async destroyed () {
+    clearInterval(this.interval)
   }
 })
 </script>
