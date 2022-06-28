@@ -78,7 +78,7 @@
                 </v-card-title>
                 <v-card-text>
                   <v-alert type="warning" text v-if="(!menus || !menus.length) && !menuQuery">
-                    Aucun menu n'a été enregisté
+                    Aucun menu n'a été enregistré
                   </v-alert>
                   <v-data-iterator
                     v-else
