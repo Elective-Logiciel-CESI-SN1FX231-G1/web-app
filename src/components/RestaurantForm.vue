@@ -30,6 +30,14 @@
             v => !!v || 'L\'adresse du restaurant est requise',
             ]"
         />
+         <v-text-field
+          v-model="restaurant.phone"
+          name="phone"
+          label="Numéro de téléphone du restaurant"
+          :rules="[
+            v => !!v || 'Le numéro de téléphone du restaurant est requis',
+            ]"
+        />
         <v-text-field
           v-model="restaurant.image"
           name="image"

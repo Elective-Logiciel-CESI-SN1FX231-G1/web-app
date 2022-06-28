@@ -110,7 +110,7 @@ const cartModule : Module<CartState, unknown> = {
         lat: 0
       }
       if (coupon) order.coupon = coupon._id
-      await axios.post('shop/api/orders', order)
+      await axios.post('/shop/api/orders', order)
       context.commit('SET_ORDER', {
         products: [],
         menus: [],
