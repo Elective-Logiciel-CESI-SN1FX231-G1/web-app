@@ -117,9 +117,11 @@
           </v-btn>
         </li>
         <li>
-          <v-btn text class="d-flex flex-column-reverse d-lg-block" :to="{ name: 'register' }">
-            <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold"> S'enregistrer</span>
-            <v-icon>mdi-account-plus-outline</v-icon>
+          <v-btn text :to="{ name: 'register' }">
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold"> S'enregistrer</span>
+              <v-icon>mdi-account-plus-outline</v-icon>
+            </div>
           </v-btn>
         </li>
         <li>
@@ -128,9 +130,11 @@
             width="500"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn text v-bind="attrs" v-on="on" class="d-flex flex-column-reverse d-lg-block">
-                <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Se connecter</span>
-                <v-icon>mdi-account-circle-outline</v-icon>
+              <v-btn text v-bind="attrs" v-on="on">
+                <div class="d-flex flex-column-reverse d-lg-block">
+                  <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Se connecter</span>
+                  <v-icon>mdi-account-circle-outline</v-icon>
+                </div>
               </v-btn>
             </template>
             <login-form />
