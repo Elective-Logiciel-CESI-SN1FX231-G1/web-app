@@ -18,6 +18,15 @@ axios.interceptors.request.use((config) => {
   return config
 })
 
+axios.interceptors.response.use(r => r, (error) => {
+  if (error.response.status === 401) {
+    store.dispatch('auth/logout')
+    router.push({ name: 'home', query: { login: 'open' } })
+    return
+  }
+  return Promise.reject(error)
+})
+
 // Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 

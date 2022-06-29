@@ -157,9 +157,15 @@ export default {
   watch: {
     user () {
       this.loginDialog = false
+    },
+    queryLogin () {
+      this.loginDialog = this.loginDialog || this.queryLogin
     }
   },
   computed: {
+    queryLogin () {
+      return this.$route.query.login === 'open'
+    },
     ...mapState('auth', ['user']),
     menuItems () {
       if (this.user) {
