@@ -1,7 +1,7 @@
 <template>
   <v-card :loading="loading">
     <v-card-title primary-title>
-      {{ user._id ? 'Éditer mon compte' : 'Créer un compte'}}
+      {{ user._id ? "Éditer mon compte" : "Créer un compte" }}
       <v-spacer></v-spacer>
       <delete-dialog v-if="user._id" label="mon compte" @delete="deleteUser">
       </delete-dialog>
@@ -14,59 +14,66 @@
           name="email"
           label="Email"
           :rules="[
-              v => !!v || 'L\'adresse email est requise',
-              v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'L\'adresse email doit etre valide'
-            ]"
+            (v) => !!v || 'L\'adresse email est requise',
+            (v) =>
+              /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+              'L\'adresse email doit etre valide',
+          ]"
         />
         <v-text-field
           v-model="user.firstname"
           name="firstname"
           label="Prénom"
-          :rules="[
-              v => !!v || 'Le prénom est requis'
-            ]"
+          :rules="[(v) => !!v || 'Le prénom est requis']"
         />
         <v-text-field
           v-model="user.lastname"
           name="lastname"
           label="Nom"
-          :rules="[
-              v => !!v || 'Le nom est requis'
-            ]"
+          :rules="[(v) => !!v || 'Le nom est requis']"
         />
         <v-text-field
           v-model="user.phone"
           label="Numéro de téléphone"
           name="phone"
-          :rules="[
-              v => !!v || 'Le numéro de téléphone est requis'
-            ]"
+          :rules="[(v) => !!v || 'Le numéro de téléphone est requis']"
         />
         <v-text-field
           v-model="user.password"
           type="password"
           label="Mot de passe"
-          :rules="[
-              v => !!v || !!user._id || 'Le mot de passe est requis'
-            ]"
+          :rules="[(v) => !!v || !!user._id || 'Le mot de passe est requis']"
         />
         <v-text-field
           type="password"
           label="Confirmation du mot de passe"
           :rules="[
-              v => !!v || !!user._id || 'La confirmation du mot de passe est requise',
-              v => v === user.password || 'Les mots de passe ne sont pas identique'
-            ]"
+            (v) =>
+              !!v ||
+              !!user._id ||
+              'La confirmation du mot de passe est requise',
+            (v) =>
+              v === user.password || 'Les mots de passe ne sont pas identique',
+          ]"
         />
         <v-select
           v-if="!role && !user._id"
           :items="roles"
           v-model="user.role"
           label="Role"
-          :rules="[
-              v => !!v || 'Le role est requis'
-            ]"
+          :rules="[(v) => !!v || 'Le role est requis']"
         ></v-select>
+        <v-checkbox
+          v-if="!user._id"
+          v-model="checkbox"
+          color="blue"
+          label="Je certifie agréer avec les conditions générales de ventes de V'EAT"
+          :rules="[
+            (c) =>
+              !!c || 'Vous devez accepter nos conditions générales de ventes',
+          ]"
+        >
+        </v-checkbox>
       </v-form>
     </v-card-text>
     <v-card-actions>
@@ -107,7 +114,8 @@ export default Vue.extend({
       user: JSON.parse(JSON.stringify(this.value)),
       valid: false,
       loading: false,
-      error: false
+      error: false,
+      checkbox: false
     }
   },
   computed: {
