@@ -12,8 +12,10 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 axios.interceptors.request.use((config) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (!(store.state as any).auth.token) return config
   config.headers = config.headers || {}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config.headers.Authorization = `Bearer ${(store.state as any).auth.token}`
   return config
 })
@@ -30,6 +32,7 @@ axios.interceptors.response.use(r => r, (error) => {
 setInterval(() => {
   store.dispatch('auth/refresh')
 }, 5 * 60 * 1000)
+store.dispatch('auth/refresh')
 
 // Vue.prototype.$axios = axios
 Vue.config.productionTip = false

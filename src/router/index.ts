@@ -19,6 +19,8 @@ import OrderView from '../views/OrderView.vue'
 import UsersView from '../views/UsersView.vue'
 import CgvView from '../views/CgvView.vue'
 import PolicyView from '../views/PolicyView.vue'
+import ComponentView from '../views/ComponentView.vue'
+
 import store from '@/store'
 Vue.use(VueRouter)
 
@@ -173,6 +175,15 @@ const routes: Array<RouteConfig> = [
     path: '/policy',
     name: 'policy',
     component: PolicyView
+  },
+  {
+    path: '/component',
+    name: 'component',
+    component: ComponentView,
+    beforeEnter: (to, from, next) => {
+      if (!['developer', 'technician'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   }
 ]
 

@@ -67,6 +67,14 @@
       </li>
       <template v-if="user && user.role === 'technician'">
         <li>
+          <v-btn text :to="{ name: 'component' }">
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Composants</span>
+              <v-icon>mdi-video-input-component</v-icon>
+            </div>
+          </v-btn>
+        </li>
+        <li>
           <v-btn text :to="{ name: 'logs' }">
             <div class="d-flex flex-column-reverse d-lg-block">
               <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Logs</span>
