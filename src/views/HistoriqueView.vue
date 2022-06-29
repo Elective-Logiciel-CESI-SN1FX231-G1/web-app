@@ -102,11 +102,8 @@
                           <v-list-item-content class="mr-4" >
                             <v-list-item-title>
                               <v-row>
-                                <v-col>
-                                  <p>{{ order.restaurant.name }}, {{ order.restaurant.address }}</p>
-                                </v-col>
-                                <v-col>
-                                  <p>{{ order.deliveringDate }}</p>
+                                <v-col class="col-md-8 col-6">
+                                  <p style="display: block; white-space: pre-line" v-text="order.restaurant.name + ', ' + order.restaurant.address + ', effectuée le ' + order.deliveringDate"></p>
                                 </v-col>
                                 <v-spacer></v-spacer>
                                 <v-col style="flex-grow: 0;">

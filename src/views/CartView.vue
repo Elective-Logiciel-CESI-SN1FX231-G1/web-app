@@ -61,6 +61,11 @@
                   :rules="[
                     v => !!v || 'Une adresse est requise' ]">
                   </v-text-field>
+                  <v-text-field
+                  v-model="comment"
+                  label="Commentaire"
+                  name="Commentaire">
+                  </v-text-field>
                 </v-form>
               </v-row>
               <v-row>
@@ -100,6 +105,7 @@ export default Vue.extend({
   },
   data: () => ({
     address: undefined,
+    comment: '',
     valid: false,
     coupons: [],
     checkbox: false
@@ -111,8 +117,8 @@ export default Vue.extend({
   methods: {
     ...mapActions('cart', ['createOrder']),
     async startCommand () {
-      if (this.checkbox) await this.createOrder({ address: this.address, coupon: this.coupons[0] })
-      else await this.createOrder({ address: this.address, coupon: undefined })
+      if (this.checkbox) await this.createOrder({ address: this.address, coupon: this.coupons[0], comment: this.comment })
+      else await this.createOrder({ address: this.address, coupon: undefined, comment: this.comment })
       this.$router.push({ name: 'validation' })
     }
   },

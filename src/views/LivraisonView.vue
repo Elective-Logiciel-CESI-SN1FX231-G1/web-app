@@ -153,7 +153,7 @@
                                       color="green"
                                       text
                                       :disabled="!valid"
-                                      @click="codeConfirmation = false; deliverOrder(order._id, code)"
+                                      @click="codeConfirmation = false; deliveredOrder(order._id, code)"
                                     >
                                       Valider
                                     </v-btn>
@@ -223,7 +223,11 @@ export default Vue.extend({
       this.acceptedOrders = acceptOrders.results
       this.acceptedOrdersCount = acceptOrders.count
     },
-    async deliverOrder (id, code) {
+    async deliverOrder (id) {
+      await this.axios.post('/orders/api/orders/' + id + '/deliver')
+      await this.fetchData()
+    },
+    async deliveredOrder (id, code) {
       const currentOrder = (await this.axios.get('/orders/api/orders/' + id)).data
       if (currentOrder.validationCode === code) {
         await this.axios.post('/orders/api/orders/' + id + '/completed')
