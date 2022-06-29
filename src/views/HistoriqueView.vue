@@ -132,7 +132,7 @@
           <v-col class="col-12 text-center" v-else-if="user && user.role === 'restaurateur'">
             <h2>Historique des commandes effectuées</h2>
             <v-alert type="warning" text v-if="orders.length === 0">
-              Vous n'avez pas encore fait de commande
+              Vous n'avez pas encore reçu de commande
             </v-alert>
             <v-card outlined v-else>
               <v-data-iterator
@@ -156,6 +156,63 @@
                               <v-spacer></v-spacer>
                               <v-col class="d-flex align-center" style="flex-grow: 0;">
                                 {{ order.price }}€
+                              </v-col>
+                            </v-row>
+                          </v-list-item-title>
+                        </v-list-item-content>
+                        <v-dialog
+                          transition="dialog-transition"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn text fab small v-bind="attrs" v-on="on">
+                              <v-icon>mdi-eye</v-icon>
+                            </v-btn>
+                          </template>
+                          <template v-slot:default="dialog">
+                            <v-card>
+                              <Commande :value="order"/>
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="secondary" @click="dialog.value=false">Fermer la fenêtre</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </template>
+                        </v-dialog>
+                      </v-list-item>
+                      <v-divider  :key="'d'+order._id"></v-divider>
+                    </template>
+                  </v-list>
+                </template>
+              </v-data-iterator>
+            </v-card>
+          </v-col>
+          <v-col class="col-12 text-center" v-else-if="user && user.role === 'commercial'">
+            <h2>Historique des commandes effectuées</h2>
+            <v-alert type="warning" text v-if="orders.length === 0">
+              Aucune commande n'a été faite
+            </v-alert>
+            <v-card outlined v-else>
+              <v-data-iterator
+                :items="orders"
+                @pagination="fetchData"
+                :page.sync="ordersPage"
+                :items-per-page.sync="ordersPerPage"
+                :server-items-length="ordersCount"
+              >
+                <template v-slot:default="props">
+                  <v-list>
+                    <template v-for="order in props.items">
+                      <v-list-item :key="order._id">
+                        <v-list-item-content class="mr-4" >
+                          <v-list-item-title>
+                            <v-row>
+                              <v-col class="col-md-8 col-6">
+                                <p style="display: block; white-space: pre-line" v-text="order.restaurant.name + ', ' + order.restaurant.address + ', effectuée le ' + order.deliveringDate"></p>
+                                <p>Client : <span v-text="order.client.firstname + ' ' + order.client.lastname + ', ' + order.client.phone"></span></p>
+                              </v-col>
+                              <v-spacer></v-spacer>
+                              <v-col class="d-flex align-center" style="flex-grow: 0;">
+                                {{ order.price }}€ + {{ order.deliveryPrice + order.commissionPrice }}€ (Frais)
                               </v-col>
                             </v-row>
                           </v-list-item-title>
