@@ -75,6 +75,16 @@
           </v-btn>
         </li>
       </template>
+      <template v-if="user && user.role === 'developer'">
+        <li>
+          <v-btn text :to="{ name: 'doc' }">
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Documentation</span>
+              <v-icon>mdi-text-box-search-outline</v-icon>
+            </div>
+          </v-btn>
+        </li>
+      </template>
       <li v-if="user">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
