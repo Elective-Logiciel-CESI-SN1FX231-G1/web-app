@@ -17,6 +17,7 @@ import DocView from '../views/DocView.vue'
 import ValidationView from '../views/ValidationView.vue'
 import OrderView from '../views/OrderView.vue'
 import UsersView from '../views/UsersView.vue'
+import CgvView from '../views/CgvView.vue'
 
 Vue.use(VueRouter)
 
@@ -105,6 +106,11 @@ const routes: Array<RouteConfig> = [
     path: '/users',
     name: 'users',
     component: UsersView
+  },
+  {
+    path: '/cgv',
+    name: 'cgv',
+    component: CgvView
   }
 ]
 
