@@ -18,6 +18,7 @@ import ValidationView from '../views/ValidationView.vue'
 import OrderView from '../views/OrderView.vue'
 import UsersView from '../views/UsersView.vue'
 import CgvView from '../views/CgvView.vue'
+import PolicyView from '../views/PolicyView.vue'
 import store from '@/store'
 Vue.use(VueRouter)
 
@@ -167,6 +168,11 @@ const routes: Array<RouteConfig> = [
     path: '/cgv',
     name: 'cgv',
     component: CgvView
+  },
+  {
+    path: '/policy',
+    name: 'policy',
+    component: PolicyView
   }
 ]
 

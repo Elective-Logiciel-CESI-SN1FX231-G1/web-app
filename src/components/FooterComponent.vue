@@ -14,8 +14,11 @@
         text
         rounded
         class="my-2"
+        :to="link.path"
       >
-        {{ link }}
+        <div class="d-flex align-center">
+          <p class="ma-0" v-text="link.title"></p>
+        </div>
       </v-btn>
       <v-col
         class="primary lighten-1 py-4 text-center white--text"
@@ -33,12 +36,22 @@ export default {
   name: 'FooterComponent',
   data: () => ({
     links: [
-      'Home',
-      'About Us',
-      'Team',
-      'Services',
-      'Blog',
-      'Contact Us'
+      {
+        title: 'Accueil',
+        path: '/'
+      },
+      {
+        title: 'Mon Compte',
+        path: '/profile'
+      },
+      {
+        title: 'Conditions Générales de Ventes',
+        path: '/cgv'
+      },
+      {
+        title: 'Politique de confidentialité',
+        path: '/policy'
+      }
     ]
   })
 }
