@@ -27,7 +27,7 @@
         <li>
           <v-btn text :to="{ name: 'order' }">
             <div class="d-flex flex-column-reverse d-lg-block">
-              <span class="mr-2">Ma Commande</span>
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Ma Commande</span>
               <v-icon>mdi-noodles</v-icon>
             </div>
           </v-btn>
@@ -35,7 +35,7 @@
         <li>
           <v-btn text :to="{ name: 'shop' }">
             <div class="d-flex flex-column-reverse d-lg-block">
-              <span class="mr-2">Commander</span>
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Commander</span>
               <v-icon>mdi-hamburger-plus</v-icon>
             </div>
           </v-btn>
@@ -43,7 +43,7 @@
         <li>
           <v-btn text :to="{ name: 'cart' }">
             <div class="d-flex flex-column-reverse d-lg-block">
-              <span class="mr-2">Panier</span>
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Panier</span>
               <v-icon>mdi-cart-outline</v-icon>
             </div>
           </v-btn>
@@ -52,7 +52,7 @@
       <li v-if="user && user.role === 'commercial'">
         <v-btn text :to="{ name: 'users' }">
           <div class="d-flex flex-column-reverse d-lg-block">
-            <span class="mr-2">Utilisateurs</span>
+            <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Utilisateurs</span>
             <v-icon>mdi-account-box-multiple-outline</v-icon>
           </div>
         </v-btn>
@@ -60,7 +60,7 @@
       <li v-if="user && (user.role === 'restaurateur' || user.role === 'commercial')">
         <v-btn text :to="{ name: 'statistiques' }">
           <div class="d-flex flex-column-reverse d-lg-block">
-            <span class="mr-2">Statistiques</span>
+            <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Statistiques</span>
             <v-icon>mdi-chart-line</v-icon>
           </div>
         </v-btn>
@@ -69,7 +69,7 @@
         <li>
           <v-btn text :to="{ name: 'logs' }">
             <div class="d-flex flex-column-reverse d-lg-block">
-              <span class="mr-2">Logs</span>
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Logs</span>
               <v-icon>mdi-clipboard-text-multiple-outline</v-icon>
             </div>
           </v-btn>
@@ -110,15 +110,15 @@
       <template v-else>
         <li>
           <v-btn text :to="{ name: 'shop' }">
-            <div class="d-flex flex-column-reverse d-lg-block font-weight-bold">
-              <span class="mr-2">Commander</span>
+            <div class="d-flex flex-column-reverse d-lg-block">
+              <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Commander</span>
               <v-icon>mdi-hamburger-plus</v-icon>
             </div>
           </v-btn>
         </li>
         <li>
-          <v-btn text class="font-weight-bold" :to="{ name: 'register' }">
-            <span class="mr-2"> S'enregistrer</span>
+          <v-btn text class="d-flex flex-column-reverse d-lg-block" :to="{ name: 'register' }">
+            <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold"> S'enregistrer</span>
             <v-icon>mdi-account-plus-outline</v-icon>
           </v-btn>
         </li>
@@ -128,8 +128,8 @@
             width="500"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn text v-bind="attrs" v-on="on" class="font-weight-bold">
-                <span class="mr-2">Se connecter</span>
+              <v-btn text v-bind="attrs" v-on="on" class="d-flex flex-column-reverse d-lg-block">
+                <span class="mr-sm-0 mr-lg-2 top-2 font-weight-bold">Se connecter</span>
                 <v-icon>mdi-account-circle-outline</v-icon>
               </v-btn>
             </template>
