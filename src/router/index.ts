@@ -18,7 +18,7 @@ import ValidationView from '../views/ValidationView.vue'
 import OrderView from '../views/OrderView.vue'
 import UsersView from '../views/UsersView.vue'
 import CgvView from '../views/CgvView.vue'
-
+import store from '@/store'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -30,47 +30,83 @@ const routes: Array<RouteConfig> = [
   {
     path: '/cart',
     name: 'cart',
-    component: CartView
+    component: CartView,
+    beforeEnter: (to, from, next) => {
+      if (!['client'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/historique',
     name: 'historique',
-    component: HistoriqueView
+    component: HistoriqueView,
+    beforeEnter: (to, from, next) => {
+      if (!['restaurateur', 'commercial', 'client', 'deliverer'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/profile',
     name: 'profile',
-    component: ProfileView
+    component: ProfileView,
+    beforeEnter: (to, from, next) => {
+      if (!(store.state as any)?.auth?.user) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/statistiques',
     name: 'statistiques',
-    component: StatistiquesView
+    component: StatistiquesView,
+    beforeEnter: (to, from, next) => {
+      if (!['restaurateur', 'commercial'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/gestion',
     name: 'gestion',
-    component: GestionView
+    component: GestionView,
+    beforeEnter: (to, from, next) => {
+      if (!['restaurateur'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: DashboardView
+    component: DashboardView,
+    beforeEnter: (to, from, next) => {
+      if (!['restaurateur', 'commercial'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/livraisons',
     name: 'livraisons',
-    component: LivraisonView
+    component: LivraisonView,
+    beforeEnter: (to, from, next) => {
+      if (!['deliverer'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/logs',
     name: 'logs',
-    component: LogsView
+    component: LogsView,
+    beforeEnter: (to, from, next) => {
+      if (!['technician'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: RegisterView
+    component: RegisterView,
+    beforeEnter: (to, from, next) => {
+      if ((store.state as any)?.auth?.user) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/shop',
@@ -85,27 +121,47 @@ const routes: Array<RouteConfig> = [
   {
     path: '/sponsor',
     name: 'sponsor',
-    component: SponsorView
+    component: SponsorView,
+    beforeEnter: (to, from, next) => {
+      if (!['client', 'restaurateur', 'deliverer'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/doc',
     name: 'doc',
-    component: DocView
+    component: DocView,
+    beforeEnter: (to, from, next) => {
+      if (!['developer', 'technician'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/validation',
     name: 'validation',
-    component: ValidationView
+    component: ValidationView,
+    beforeEnter: (to, from, next) => {
+      if (!['client'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/order',
     name: 'order',
-    component: OrderView
+    component: OrderView,
+    beforeEnter: (to, from, next) => {
+      if (!['client'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/users',
     name: 'users',
-    component: UsersView
+    component: UsersView,
+    beforeEnter: (to, from, next) => {
+      if (!['commercial'].includes((store.state as any)?.auth?.user?.role)) return next({ name: 'home' })
+      return next()
+    }
   },
   {
     path: '/cgv',
