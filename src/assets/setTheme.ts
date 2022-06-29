@@ -10,7 +10,7 @@ const themes = {
   client: {
     name: 'Client',
     light: {
-      primary: '#fff'
+      primary: '#7c7c7c'
     },
     dark: {
 
