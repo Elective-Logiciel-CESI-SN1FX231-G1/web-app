@@ -50,8 +50,8 @@
                                 <commande :value="order"></commande>
                                 <v-card-actions>
                                   <v-btn color="secondary" @click="dialog.value=false">Retour</v-btn>
-                                  <v-btn color="error" @click="dialog.value=false;rejectOrder(order._id)">Refuser la commmande</v-btn>
-                                  <v-btn color="success" @click="dialog.value=false;acceptOrder(order._id)">Accepter la commande</v-btn>
+                                  <v-btn  v-if="user.role === 'restaurateur'" color="error" @click="dialog.value=false;rejectOrder(order._id)">Refuser la commmande</v-btn>
+                                  <v-btn  v-if="user.role === 'restaurateur'" color="success" @click="dialog.value=false;acceptOrder(order._id)">Accepter la commande</v-btn>
                                 </v-card-actions>
                               </v-card>
                             </template>
@@ -107,9 +107,9 @@
                             <template v-slot:default="dialog">
                               <v-card>
                                 <commande :value="order"></commande>
-                                <v-card-actions>
+                                <v-card-actions >
                                   <v-btn color="secondary" @click="dialog.value=false">Retour</v-btn>
-                                  <v-btn color="success" @click="dialog.value=false;finishOrder(order._id)">Terminer la commande</v-btn>
+                                  <v-btn  v-if="user.role === 'restaurateur'" color="success" @click="dialog.value=false;finishOrder(order._id)">Terminer la commande</v-btn>
                                 </v-card-actions>
                               </v-card>
                             </template>
