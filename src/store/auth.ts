@@ -58,16 +58,16 @@ const authModule : Module<AuthState, unknown> = {
       context.commit('SET_TOKEN', data.token)
       context.commit('SET_USER', data.user)
     },
-
     async logout (context) {
       context.commit('SET_TOKEN', undefined)
       context.commit('SET_USER', undefined)
+    },
+    async refresh (context) {
+      if (!context.state.user) return
+      const { data } = await axios.get('/auth/api/auth/refresh')
+      context.commit('SET_TOKEN', data.token)
+      context.commit('SET_USER', data.user)
     }
-
-    // async fetch (context) {
-    //   const { data } = await axios.get('/auth/api/auth/verify')
-    //   context.commit('SET_USER', data)
-    // }
   }
 }
 

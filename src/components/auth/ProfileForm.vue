@@ -114,7 +114,7 @@ export default Vue.extend({
     // ...mapState('auth', ['user'])
   },
   methods: {
-    ...mapActions('auth', ['login', 'logout']),
+    ...mapActions('auth', ['login', 'logout', 'refresh']),
     async submit () {
       if (this.role) this.user.role = this.role
       if (this.user._id) await this.axios.patch(`/auth/api/users/${this.user._id}`, this.user)
@@ -128,7 +128,7 @@ export default Vue.extend({
         this.$emit('save')
         this.$router.push({ name: 'home' })
       } else {
-        // await this.fetch()
+        await this.refresh()
         this.$emit('save')
       }
     },

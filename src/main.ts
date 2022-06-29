@@ -27,6 +27,10 @@ axios.interceptors.response.use(r => r, (error) => {
   return Promise.reject(error)
 })
 
+setInterval(() => {
+  store.dispatch('auth/refresh')
+}, 5 * 60 * 1000)
+
 // Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
