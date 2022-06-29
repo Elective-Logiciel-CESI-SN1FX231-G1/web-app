@@ -36,7 +36,8 @@
                         <td>{{ item.phone }}</td>
                         <td>{{ item.role }}</td>
                         <td>
-                          <v-btn color="error" tile>suspendre</v-btn>
+                          <v-btn v-if="!item.ban" color="error" tile @click="banUser(item._id,true)">suspendre</v-btn>
+                          <v-btn v-else color="success" tile @click="banUser(item._id,false)">restaurer</v-btn>
                           <delete-dialog label="un utilisateur" @delete="deleteUser(item._id)"></delete-dialog>
                         </td>
                       </tr>
@@ -70,6 +71,10 @@ export default Vue.extend({
       const users = (await this.axios.get(`/auth/api/users?page=${this.usersPage}&size=${this.usersItemPerPage === -1 ? 0 : this.usersItemPerPage}`)).data
       this.users = users.results
       this.usersCount = users.count
+    },
+    async banUser (_id, ban) {
+      await this.axios.patch(`/auth/api/users/${_id}`, { ban })
+      await this.fetchUsers()
     },
     async deleteUser (_id) {
       await this.axios.delete(`/auth/api/users/${_id}`)
