@@ -118,6 +118,12 @@
                   <span>{{ item.title }}</span>
               </v-list-item-title>
             </v-list-item>
+            <v-list-item :to="{name:'historique'}" v-if="['client','restaurateur','deliverer','commercial'].includes(user.role)">
+              <v-list-item-title class="font-weight-bold">
+                  <v-icon class="mr-2">mdi-history</v-icon>
+                  <span>Historique</span>
+              </v-list-item-title>
+            </v-list-item>
             <v-list-item :to="{name:'sponsor'}" v-if="['client','restaurateur','deliverer'].includes(user.role)">
               <v-list-item-title class="font-weight-bold">
                   <v-icon class="mr-2">mdi-account-multiple-plus-outline</v-icon>
@@ -237,11 +243,6 @@ export default {
           title: 'Modifier mon profil',
           path: '/profile',
           icon: 'mdi-account-cog-outline'
-        },
-        {
-          title: 'Historique',
-          path: '/historique',
-          icon: 'mdi-history'
         }
       ]
     }
