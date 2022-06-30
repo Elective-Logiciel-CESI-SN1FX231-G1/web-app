@@ -241,7 +241,7 @@ export default Vue.extend({
       this.acceptedOrdersCount = acceptedOrders.count
     },
     async fetchDeliveringOrders () {
-      const deliveringOrders = (await this.axios.get(`/orders/api/orders?status=waitingDelivery,delivering&page=${this.deliveringOrdersPage}&size=${this.deliveringOrdersItemPerPage === -1 ? 0 : this.deliveringOrdersItemPerPage}`)).data
+      const deliveringOrders = (await this.axios.get(`/orders/api/orders?status=waitingDelivery&page=${this.deliveringOrdersPage}&size=${this.deliveringOrdersItemPerPage === -1 ? 0 : this.deliveringOrdersItemPerPage}`)).data
       this.deliveringOrders = deliveringOrders.results
       this.deliveringOrdersCount = deliveringOrders.count
     },
