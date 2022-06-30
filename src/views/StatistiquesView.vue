@@ -69,7 +69,7 @@ export default Vue.extend({
     today.setSeconds(0)
     today.setMinutes(0)
     today.setHours(0)
-    this.stats = (await this.axios.get(`/stats/api/stats?from=${today}`)).data.results
+    this.stats = (await this.axios.get(`/stats/api/stats?from=${today}&size=0`)).data.results
     this.chart = new Chart('chart', {
       type: 'bar',
       data: this.data
