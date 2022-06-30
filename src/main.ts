@@ -13,10 +13,10 @@ Vue.use(VueAxios, axios)
 
 axios.interceptors.request.use((config) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!(store.state as any).auth.token) return config
+  const token = (store.state as any).auth.token
+  if (!token || token === 'undefined') return config
   config.headers = config.headers || {}
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  config.headers.Authorization = `Bearer ${(store.state as any).auth.token}`
+  config.headers.Authorization = `Bearer ${token}`
   return config
 })
 

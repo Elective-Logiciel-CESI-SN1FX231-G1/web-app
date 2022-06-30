@@ -1,3 +1,4 @@
+import subscribe from '@/notify'
 import axios from 'axios'
 import { Module } from 'vuex'
 
@@ -57,6 +58,7 @@ const authModule : Module<AuthState, unknown> = {
       }))
       context.commit('SET_TOKEN', data.token)
       context.commit('SET_USER', data.user)
+      subscribe(data.user)
     },
     async logout (context) {
       context.commit('SET_TOKEN', undefined)
