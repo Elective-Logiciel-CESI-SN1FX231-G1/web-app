@@ -37,7 +37,8 @@ export default Vue.extend({
       { title: 'Service des commandes', url: '/orders/api/' },
       { title: 'Service de notification', url: '/notify/api/' },
       { title: 'Service de statistique', url: '/stats/api/' },
-      { title: 'Service de log', url: '/logs/api/' }
+      { title: 'Service de log', url: '/logs/api/' },
+      { title: 'Service de monitoring', url: '/perfs/api/' }
     ]
   })
 })
