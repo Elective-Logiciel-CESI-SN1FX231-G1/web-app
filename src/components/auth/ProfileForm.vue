@@ -7,6 +7,13 @@
       </delete-dialog>
     </v-card-title>
     <v-card-text>
+      <v-alert
+        v-model="alert"
+        text
+        type="success"
+      >
+        Votre profil a été modifié
+      </v-alert>
       <v-form v-model="valid">
         <v-text-field
           v-if="!user._id"
@@ -115,7 +122,8 @@ export default Vue.extend({
       valid: false,
       loading: false,
       error: false,
-      checkbox: false
+      checkbox: false,
+      alert: false
     }
   },
   computed: {
@@ -137,6 +145,7 @@ export default Vue.extend({
         this.$router.push({ name: 'home' })
       } else {
         await this.refresh()
+        this.alert = true
         this.$emit('save')
       }
     },

@@ -5,6 +5,13 @@
         Parrainage
       </v-card-title>
       <v-card-text>
+        <v-alert
+          v-model="alert"
+          text
+          type="success"
+        >
+          Parrainage effectué avec succès
+        </v-alert>
         <v-row>
           <v-col class="col-12 col-md-6">
             <v-card outlined>
@@ -62,7 +69,8 @@ export default Vue.extend({
     myCode: undefined,
     code: '',
     loading: true,
-    error: undefined
+    error: undefined,
+    alert: false
   }),
   computed: {
     ...mapState('auth', ['user'])
@@ -71,6 +79,7 @@ export default Vue.extend({
     async submit () {
       try {
         await this.axios.post('/sponsor/api/sponsor-code', { code: this.code })
+        this.alert = true
       } catch (error) {
         if (error.response.data === 'You have been sponsored already') this.error = 'Vous avez déja été parrainé'
         else this.error = 'Code invalide'
